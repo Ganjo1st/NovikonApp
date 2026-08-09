@@ -10,9 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
-// import com.yandex.mobile.ads.AdRequest;
-// import com.yandex.mobile.ads.InterstitialAd;
-// import com.yandex.mobile.ads.InterstitialAdEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,16 +31,21 @@ public class MainActivity extends AppCompatActivity {
     private List<NewsItem> newsList = new ArrayList<>();
     private Handler handler = new Handler();
 
-    // ТОКЕН БЕРЕТСЯ ИЗ ПЕРЕМЕННОЙ ОКРУЖЕНИЯ (БЕЗОПАСНО!)
     private String getNewsUrl() {
-        String token = System.getenv("BOT_TOKEN");
-        if (token == null || token.isEmpty()) {
+        // Токен берется из BuildConfig (переменная окружения BOT_TOKEN)
+        String token = BuildConfig.BOT_TOKEN;
+        
+        Log.d("NovikonApp", "Токен: " + token);
+        if (token == null || token.isEmpty() || token.equals("null")) {
             runOnUiThread(() -> Toast.makeText(this, "Ошибка: токен не найден", Toast.LENGTH_LONG).show());
             return null;
         }
-        return "https://api.telegram.org/bot" + token + "/getUpdates?chat_id=@Novikon_news&limit=20";
+        String url = "https://api.telegram.org/bot" + token + "/getUpdates?chat_id=@Novikon_news&limit=20";
+        Log.d("NovikonApp", "URL: " + url);
+        return url;
     }
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -58,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         loadNews();
         startAutoUpdate();
-        // handler.postDelayed(() -> showAd(), 10000);
     }
 
     private void loadNews() {
@@ -71,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка загрузки: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                Log.e("NovikonApp", "Ошибка загрузки", e);
             }
 
             @Override
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     try {
                         String json = response.body().string();
+                        Log.d("NovikonApp", "Ответ: " + json);
+                        
                         JSONObject obj = new JSONObject(json);
                         JSONArray results = obj.getJSONArray("result");
 
@@ -97,8 +101,11 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(() -> adapter.notifyDataSetChanged());
 
                     } catch (Exception e) {
-                        Log.e("News", "Parse error", e);
+                        Log.e("NovikonApp", "Ошибка парсинга", e);
+                        runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка парсинга данных", Toast.LENGTH_LONG).show());
                     }
+                } else {
+                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка: " + response.code(), Toast.LENGTH_LONG).show());
                 }
             }
         });
@@ -114,10 +121,9 @@ public class MainActivity extends AppCompatActivity {
         }, 300000);
     }
 
-
-
-
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
     }
 }

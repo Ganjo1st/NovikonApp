@@ -8,27 +8,28 @@ android {
 
     defaultConfig {
         applicationId "com.novikon.app"
-        minSdk 24
+        minSdk 21
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        
+        // Токен из переменной окружения
+        buildConfigField "String", "BOT_TOKEN", "\"${System.getenv('BOT_TOKEN')}\""
     }
 
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+    // ВКЛЮЧАЕМ BuildConfig
+    buildFeatures {
+        buildConfig true
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-     implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -36,5 +37,4 @@ dependencies {
     implementation 'com.yandex.android:mobileads:7.14.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'com.google.code.gson:gson:2.10.1'
-    // Яндекс.Реклама
 }
