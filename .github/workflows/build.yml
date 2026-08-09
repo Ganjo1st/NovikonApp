@@ -10,23 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
+    - uses: actions/checkout@v4
+    
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
-
-    - name: Make gradlew executable
+    
+    - name: Set up Android SDK
+      run: |
+        sudo apt-get update
+        sudo apt-get install android-sdk -y
+        echo "sdk.dir=/usr/lib/android-sdk" > local.properties
+    
+    - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-
-    - name: Build APK
+    
+    - name: Build APK with Gradle
       run: ./gradlew assembleDebug
-
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+    
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: NovikonApp
+        name: app-debug
         path: app/build/outputs/apk/debug/app-debug.apk
