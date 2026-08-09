@@ -35,14 +35,16 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler();
 
     // ТОКЕН БЕРЕТСЯ ИЗ ПЕРЕМЕННОЙ ОКРУЖЕНИЯ (БЕЗОПАСНО!)
-    private String getNewsUrl() {
-        String token = System.getenv("BOT_TOKEN");
-        if (token == null || token.isEmpty()) {
-            runOnUiThread(() -> Toast.makeText(this, "Ошибка: токен не найден", Toast.LENGTH_LONG).show());
-            return null;
-        }
-        return "https://api.telegram.org/bot" + token + "/getUpdates?chat_id=@Novikon_news&limit=20";
+   private String getNewsUrl() {
+    // Токен вшит в приложение
+    String token = "8832915986:AAHc9q42Ux7RC5t37AtvCsfQMGNd_h5uGAA";
+    
+    if (token == null || token.isEmpty()) {
+        runOnUiThread(() -> Toast.makeText(this, "Ошибка: токен не найден", Toast.LENGTH_LONG).show());
+        return null;
     }
+    return "https://api.telegram.org/bot" + token + "/getUpdates?chat_id=@Novikon_news&limit=20";
+}
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
