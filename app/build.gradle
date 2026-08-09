@@ -12,19 +12,14 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "8480003906:AAHHJ3X1j1eJsq2RqwhHzqMMjvrin17Mo2E", "\"${System.getenv('BOT_TOKEN')}\""
+        
+        // Добавляем токен из переменной окружения
+        buildConfigField "String", "BOT_TOKEN", "\"${System.getenv('BOT_TOKEN')}\""
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-
-    // Переименование APK
-    android.applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "Новости_v${variant.versionName}.apk"
-        }
     }
 }
 
