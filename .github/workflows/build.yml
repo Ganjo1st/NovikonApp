@@ -24,6 +24,12 @@ jobs:
         sudo apt-get install android-sdk -y
         echo "sdk.dir=/usr/lib/android-sdk" > local.properties
     
+    - name: Accept Android SDK Licenses
+      run: |
+        mkdir -p /usr/lib/android-sdk/licenses
+        echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > /usr/lib/android-sdk/licenses/android-sdk-license
+        echo "84831b9409646a918e30573bab4c9c91346d8abd" > /usr/lib/android-sdk/licenses/android-sdk-preview-license
+    
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     
