@@ -22,13 +22,17 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install android-sdk -y
-        echo "sdk.dir=/usr/lib/android-sdk" > local.properties
+        mkdir -p $HOME/android-sdk
+        sudo cp -r /usr/lib/android-sdk/* $HOME/android-sdk/
+        sudo chown -R $USER:$USER $HOME/android-sdk
+        echo "sdk.dir=$HOME/android-sdk" > local.properties
+        echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
     
     - name: Accept Android SDK Licenses
       run: |
-        sudo mkdir -p /usr/lib/android-sdk/licenses
-        echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" | sudo tee /usr/lib/android-sdk/licenses/android-sdk-license
-        echo "84831b9409646a918e30573bab4c9c91346d8abd" | sudo tee /usr/lib/android-sdk/licenses/android-sdk-preview-license
+        mkdir -p $HOME/android-sdk/licenses
+        echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > $HOME/android-sdk/licenses/android-sdk-license
+        echo "84831b9409646a918e30573bab4c9c91346d8abd" > $HOME/android-sdk/licenses/android-sdk-preview-license
     
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
