@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
-// import com.yandex.mobile.ads.AdRequest;
-// import com.yandex.mobile.ads.InterstitialAd;
-// import com.yandex.mobile.ads.InterstitialAdEventListener;
+import com.yandex.mobile.ads.AdRequest;
+import com.yandex.mobile.ads.InterstitialAd;
+import com.yandex.mobile.ads.InterstitialAdEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
     private List<NewsItem> newsList = new ArrayList<>();
+    private InterstitialAd interstitialAd;
     private Handler handler = new Handler();
 
     // ТОКЕН БЕРЕТСЯ ИЗ ПЕРЕМЕННОЙ ОКРУЖЕНИЯ (БЕЗОПАСНО!)
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         return "https://api.telegram.org/bot" + token + "/getUpdates?chat_id=@Novikon_news&limit=20";
     }
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -58,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         loadNews();
         startAutoUpdate();
-        // handler.postDelayed(() -> showAd(), 10000);
+        setupInterstitialAd();
+        handler.postDelayed(() -> showAd(), 10000);
     }
 
     private void loadNews() {
@@ -114,10 +117,46 @@ public class MainActivity extends AppCompatActivity {
         }, 300000);
     }
 
+    private void setupInterstitialAd() {
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("R-M-19685327-1");
+        interstitialAd.setInterstitialAdEventListener(new InterstitialAdEventListener() {
+            @Override
+            public void onAdLoaded() { }
 
+            @Override
+            public void onAdFailedToLoad(String error) {
+                handler.postDelayed(() -> loadAd(), 5000);
+            }
 
+            @Override
+            public void onAdShown() { }
 
+            @Override
+            public void onAdDismissed() {
+                loadAd();
+            }
+        });
+        loadAd();
+    }
+
+    private void loadAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        interstitialAd.loadAd(adRequest);
+    }
+
+    private void showAd() {
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
+        }
+        handler.removeCallbacksAndMessages(null);
     }
 }
