@@ -13,8 +13,13 @@ android {
         versionCode 1
         versionName "1.0"
         
-        // Добавляем токен из переменной окружения
+        // Токен из переменной окружения
         buildConfigField "String", "BOT_TOKEN", "\"${System.getenv('BOT_TOKEN')}\""
+    }
+
+    // ВКЛЮЧАЕМ BuildConfig
+    buildFeatures {
+        buildConfig true
     }
 
     compileOptions {
