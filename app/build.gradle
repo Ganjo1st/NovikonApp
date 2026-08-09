@@ -12,6 +12,7 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "8480003906:AAHHJ3X1j1eJsq2RqwhHzqMMjvrin17Mo2E", "\"${System.getenv('BOT_TOKEN')}\""
     }
 
     compileOptions {
