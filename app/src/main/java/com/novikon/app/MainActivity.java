@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String getNewsUrl() {
         // Токен берется из BuildConfig (переменная окружения BOT_TOKEN)
-        String token = BuildConfig.BOT_TOKEN;
+        String token = "8480003906:AAHHJ3X1j1eJsq2RqwhHzqMMjvrin17Mo2E";
         
         Log.d("NovikonApp", "Токен: " + token);
         if (token == null || token.isEmpty() || token.equals("null")) {
