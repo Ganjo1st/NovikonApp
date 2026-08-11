@@ -10,9 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.yandex.mobile.ads.AdRequest;
-import com.yandex.mobile.ads.InterstitialAd;
-import com.yandex.mobile.ads.InterstitialAdEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,17 +29,20 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
     private List<NewsItem> newsList = new ArrayList<>();
-    private InterstitialAd interstitialAd;
     private Handler handler = new Handler();
 
-    // ТОКЕН БЕРЕТСЯ ИЗ ПЕРЕМЕННОЙ ОКРУЖЕНИЯ (БЕЗОПАСНО!)
     private String getNewsUrl() {
-        String token = System.getenv("BOT_TOKEN");
-        if (token == null || token.isEmpty()) {
+        // Токен берется из BuildConfig (переменная окружения BOT_TOKEN)
+        String token = "8832915986:AAHc9q42Ux7RC5t37AtvCsfQMGNd_h5uGAA";
+        
+        Log.d("NovikonApp", "Токен: " + token);
+        if (token == null || token.isEmpty() || token.equals("null")) {
             runOnUiThread(() -> Toast.makeText(this, "Ошибка: токен не найден", Toast.LENGTH_LONG).show());
             return null;
         }
-        return "https://api.telegram.org/bot" + token + "/getUpdates?chat_id=@Novikon_news&limit=20";
+        String url = "https://api.telegram.org/bot" + token + "/getUpdates?chat_id=@Novikon_news&limit=20";
+        Log.d("NovikonApp", "URL: " + url);
+        return url;
     }
 
     @Override
@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         loadNews();
         startAutoUpdate();
-        setupInterstitialAd();
-        handler.postDelayed(() -> showAd(), 10000);
     }
 
     private void loadNews() {
@@ -74,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка загрузки: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                Log.e("NovikonApp", "Ошибка загрузки", e);
             }
 
             @Override
@@ -82,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     try {
                         String json = response.body().string();
+                        Log.d("NovikonApp", "Ответ: " + json);
+                        
                         JSONObject obj = new JSONObject(json);
                         JSONArray results = obj.getJSONArray("result");
 
@@ -100,8 +101,11 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(() -> adapter.notifyDataSetChanged());
 
                     } catch (Exception e) {
-                        Log.e("News", "Parse error", e);
+                        Log.e("NovikonApp", "Ошибка парсинга", e);
+                        runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка парсинга данных", Toast.LENGTH_LONG).show());
                     }
+                } else {
+                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка: " + response.code(), Toast.LENGTH_LONG).show());
                 }
             }
         });
@@ -117,46 +121,9 @@ public class MainActivity extends AppCompatActivity {
         }, 300000);
     }
 
-    private void setupInterstitialAd() {
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("R-M-19685327-1");
-        interstitialAd.setInterstitialAdEventListener(new InterstitialAdEventListener() {
-            @Override
-            public void onAdLoaded() { }
-
-            @Override
-            public void onAdFailedToLoad(String error) {
-                handler.postDelayed(() -> loadAd(), 5000);
-            }
-
-            @Override
-            public void onAdShown() { }
-
-            @Override
-            public void onAdDismissed() {
-                loadAd();
-            }
-        });
-        loadAd();
-    }
-
-    private void loadAd() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        interstitialAd.loadAd(adRequest);
-    }
-
-    private void showAd() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (interstitialAd != null) {
-            interstitialAd.destroy();
-        }
         handler.removeCallbacksAndMessages(null);
     }
 }
