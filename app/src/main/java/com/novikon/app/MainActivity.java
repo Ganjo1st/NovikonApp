@@ -31,18 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private List<NewsItem> newsList = new ArrayList<>();
     private Handler handler = new Handler();
 
+    // Загружаем данные с GitHub Pages (без VPN!)
     private String getNewsUrl() {
-        // Токен берется из BuildConfig (переменная окружения BOT_TOKEN)
-        String token = "8480003906:AAHHJ3X1j1eJsq2RqwhHzqMMjvrin17Mo2E";
-        
-        Log.d("NovikonApp", "Токен: " + token);
-        if (token == null || token.isEmpty() || token.equals("null")) {
-            runOnUiThread(() -> Toast.makeText(this, "Ошибка: токен не найден", Toast.LENGTH_LONG).show());
-            return null;
-        }
-        String url = "https://api.telegram.org/bot" + token + "/getUpdates?chat_id=@Novikon_news&limit=20";
-        Log.d("NovikonApp", "URL: " + url);
-        return url;
+        return "https://ganjo1st.github.io/NovikonApp/data/news.json";
     }
 
     @Override
@@ -67,13 +58,19 @@ public class MainActivity extends AppCompatActivity {
         if (url == null) return;
 
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Cache-Control", "no-cache")
+                .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка загрузки: " + e.getMessage(), Toast.LENGTH_LONG).show());
-                Log.e("NovikonApp", "Ошибка загрузки", e);
+                runOnUiThread(() -> {
+                    String errorMsg = "Ошибка загрузки: " + e.getMessage();
+                    Toast.makeText(MainActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+                    Log.e("NovikonApp", "Ошибка загрузки", e);
+                });
             }
 
             @Override
@@ -83,29 +80,58 @@ public class MainActivity extends AppCompatActivity {
                         String json = response.body().string();
                         Log.d("NovikonApp", "Ответ: " + json);
                         
+                        // Парсим новый формат: {"last_update": "...", "data": {...}}
                         JSONObject obj = new JSONObject(json);
-                        JSONArray results = obj.getJSONArray("result");
+                        JSONObject data = obj.getJSONObject("data");
+                        JSONArray results = data.getJSONArray("result");
 
                         newsList.clear();
                         for (int i = 0; i < results.length(); i++) {
-                            JSONObject message = results.getJSONObject(i).getJSONObject("message");
-                            String text = message.getString("text");
+                            // Получаем объект сообщения
+                            JSONObject update = results.getJSONObject(i);
+                            JSONObject message = null;
+                            
+                            // Проверяем, есть ли поле "message" или "channel_post"
+                            if (update.has("message")) {
+                                message = update.getJSONObject("message");
+                            } else if (update.has("channel_post")) {
+                                message = update.getJSONObject("channel_post");
+                            } else {
+                                continue; // Пропускаем, если нет сообщения
+                            }
+                            
+                            // Получаем текст
+                            String text = message.optString("caption", message.optString("text", ""));
+                            if (text.isEmpty()) {
+                                continue; // Пропускаем, если нет текста
+                            }
+                            
+                            // Получаем название (первые 50 символов)
                             String title = text.length() > 50 ? text.substring(0, 50) + "..." : text;
+                            
+                            // Получаем просмотры (если есть)
                             int views = message.optInt("views", 0);
+                            
+                            // Генерируем случайные лайки для примера
                             int likes = (int) (Math.random() * 100);
 
                             NewsItem item = new NewsItem(title, text, views, likes);
                             newsList.add(item);
                         }
 
-                        runOnUiThread(() -> adapter.notifyDataSetChanged());
+                        runOnUiThread(() -> {
+                            if (newsList.isEmpty()) {
+                                Toast.makeText(MainActivity.this, "Новостей пока нет", Toast.LENGTH_SHORT).show();
+                            }
+                            adapter.notifyDataSetChanged();
+                        });
 
                     } catch (Exception e) {
                         Log.e("NovikonApp", "Ошибка парсинга", e);
                         runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка парсинга данных", Toast.LENGTH_LONG).show());
                     }
                 } else {
-                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка: " + response.code(), Toast.LENGTH_LONG).show());
+                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка сервера: " + response.code(), Toast.LENGTH_LONG).show());
                 }
             }
         });
