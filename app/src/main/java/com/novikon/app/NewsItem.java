@@ -1,20 +1,21 @@
 package com.novikon.app;
 
 public class NewsItem {
-    private String title;
-    private String content;
-    private int views;
-    private int likes;
+    public int updateId;
+    public String title;
+    public String description;
+    public String fullText;
+    public int date;
+    public String photoUrl;
+    public String caption;
 
-    public NewsItem(String title, String content, int views, int likes) {
+    public NewsItem(int updateId, String title, String description, String fullText, int date, String photoUrl, String caption) {
+        this.updateId = updateId;
         this.title = title;
-        this.content = content;
-        this.views = views;
-        this.likes = likes;
+        this.description = description;
+        this.fullText = fullText;
+        this.date = date;
+        this.photoUrl = photoUrl;
+        this.caption = caption;
     }
-
-    public String getTitle() { return title; }
-    public String getContent() { return content; }
-    public int getViews() { return views; }
-    public int getLikes() { return likes; }
 }

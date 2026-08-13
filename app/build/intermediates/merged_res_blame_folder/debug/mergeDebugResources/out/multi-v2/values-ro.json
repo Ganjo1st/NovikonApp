@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.novikon.app-mergeDebugResources-40:/values-ro/values-ro.xml",
+            "outputFile": "com.novikon.app-mergeDebugResources-41:/values-ro/values-ro.xml",
             "map": [
                 {
                     "source": "/home/codespace/.gradle/caches/transforms-4/4b72087d23b894668e1868859acd25a6/transformed/core-1.13.1/res/values-ro/values-ro.xml",

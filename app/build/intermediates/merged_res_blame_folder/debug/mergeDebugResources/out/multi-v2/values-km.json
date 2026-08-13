@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.novikon.app-mergeDebugResources-40:/values-km/values-km.xml",
+            "outputFile": "com.novikon.app-mergeDebugResources-41:/values-km/values-km.xml",
             "map": [
                 {
                     "source": "/home/codespace/.gradle/caches/transforms-4/34edadc5304545bc9b9ecd30f3b22e45/transformed/material-1.10.0/res/values-km/values-km.xml",

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.novikon.app-mergeDebugResources-40:/values-en/values-en.xml",
+            "outputFile": "com.novikon.app-mergeDebugResources-41:/values-en/values-en.xml",
             "map": [
                 {
                     "source": "/home/codespace/.gradle/caches/transforms-4/0f926abb9c8522b150d503ef5f57300b/transformed/jetified-div-31.13.0/res/values-en/values-en.xml",

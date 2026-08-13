@@ -3770,6 +3770,7 @@ id frost
 id fullscreen_header
 id ghost_view
 id ghost_view_holder
+id glide_custom_view_target_tag
 id gone
 id graph
 id graph_wrap
@@ -3832,8 +3833,6 @@ id leftToRight
 id left_scroll_control_button
 id legacy
 id light
-id likeButton
-id likeCount
 id line1
 id line3
 id linear
@@ -3914,7 +3913,11 @@ id navigation_icon
 id never
 id neverCompleteToEnd
 id neverCompleteToStart
-id newsRecyclerView
+id newsDate
+id newsDescription
+id newsImage
+id newsListView
+id newsTitle
 id noScroll
 id noState
 id none
@@ -3958,12 +3961,10 @@ id percent
 id pin
 id pooling_container_listener_holder_tag
 id position
-id postDate
 id postLayout
-id postText
-id postTitle
 id pressed
 id price
+id progressBar
 id progress_circular
 id progress_horizontal
 id qrcode_container
@@ -4083,6 +4084,7 @@ id textinput_helper_text
 id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
+id themeToggle
 id time
 id timer_container
 id timer_value
@@ -4126,11 +4128,10 @@ id view_tree_lifecycle_owner
 id view_tree_on_back_pressed_dispatcher_owner
 id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
-id viewsCount
-id viewsIcon
 id visible
 id visible_removing_fragment_view_tag
 id warning
+id webView
 id west
 id wide
 id withText
@@ -4272,6 +4273,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_debug
 layout activity_main
+layout activity_webview
 layout custom_dialog
 layout debug_panel_item_action_button
 layout debug_panel_item_ad_unit

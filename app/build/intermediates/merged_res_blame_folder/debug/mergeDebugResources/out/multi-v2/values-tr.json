@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.novikon.app-mergeDebugResources-40:/values-tr/values-tr.xml",
+            "outputFile": "com.novikon.app-mergeDebugResources-41:/values-tr/values-tr.xml",
             "map": [
                 {
                     "source": "/home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/res/values-tr/values-tr.xml",

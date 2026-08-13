@@ -1,155 +1,124 @@
 package com.novikon.app;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.appbar.MaterialToolbar;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
+    private ListView newsListView;
+    private ProgressBar progressBar;
     private NewsAdapter adapter;
-    private List<NewsItem> newsList = new ArrayList<>();
-    private Handler handler = new Handler();
-
-    // Загружаем данные с GitHub Pages (без VPN!)
-    private String getNewsUrl() {
-        return "https://ganjo1st.github.io/NovikonApp/data/news.json";
-    }
+    private ArrayList<NewsItem> newsList = new ArrayList<>();
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    private Handler mainHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        newsListView = findViewById(R.id.newsListView);
+        progressBar = findViewById(R.id.progressBar);
 
-        recyclerView = findViewById(R.id.newsRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NewsAdapter(newsList);
-        recyclerView.setAdapter(adapter);
+        adapter = new NewsAdapter(this, newsList);
+        newsListView.setAdapter(adapter);
 
         loadNews();
-        startAutoUpdate();
-    }
 
-    private void loadNews() {
-        String url = getNewsUrl();
-        if (url == null) return;
-
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Cache-Control", "no-cache")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                runOnUiThread(() -> {
-                    String errorMsg = "Ошибка загрузки: " + e.getMessage();
-                    Toast.makeText(MainActivity.this, errorMsg, Toast.LENGTH_LONG).show();
-                    Log.e("NovikonApp", "Ошибка загрузки", e);
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    try {
-                        String json = response.body().string();
-                        Log.d("NovikonApp", "Ответ: " + json);
-                        
-                        // Парсим новый формат: {"last_update": "...", "data": {...}}
-                        JSONObject obj = new JSONObject(json);
-                        JSONObject data = obj.getJSONObject("data");
-                        JSONArray results = data.getJSONArray("result");
-
-                        newsList.clear();
-                        for (int i = 0; i < results.length(); i++) {
-                            // Получаем объект сообщения
-                            JSONObject update = results.getJSONObject(i);
-                            JSONObject message = null;
-                            
-                            // Проверяем, есть ли поле "message" или "channel_post"
-                            if (update.has("message")) {
-                                message = update.getJSONObject("message");
-                            } else if (update.has("channel_post")) {
-                                message = update.getJSONObject("channel_post");
-                            } else {
-                                continue; // Пропускаем, если нет сообщения
-                            }
-                            
-                            // Получаем текст
-                            String text = message.optString("caption", message.optString("text", ""));
-                            if (text.isEmpty()) {
-                                continue; // Пропускаем, если нет текста
-                            }
-                            
-                            // Получаем название (первые 50 символов)
-                            String title = text.length() > 50 ? text.substring(0, 50) + "..." : text;
-                            
-                            // Получаем просмотры (если есть)
-                            int views = message.optInt("views", 0);
-                            
-                            // Генерируем случайные лайки для примера
-                            int likes = (int) (Math.random() * 100);
-
-                            NewsItem item = new NewsItem(title, text, views, likes);
-                            newsList.add(item);
-                        }
-
-                        runOnUiThread(() -> {
-                            if (newsList.isEmpty()) {
-                                Toast.makeText(MainActivity.this, "Новостей пока нет", Toast.LENGTH_SHORT).show();
-                            }
-                            adapter.notifyDataSetChanged();
-                        });
-
-                    } catch (Exception e) {
-                        Log.e("NovikonApp", "Ошибка парсинга", e);
-                        runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка парсинга данных", Toast.LENGTH_LONG).show());
-                    }
-                } else {
-                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Ошибка сервера: " + response.code(), Toast.LENGTH_LONG).show());
-                }
-            }
+        newsListView.setOnItemClickListener((parent, view, position, id) -> {
+            NewsItem item = newsList.get(position);
+            // Открываем статью в WebView
+            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+            intent.putExtra("url", "https://ganjo1st.github.io/NovikonApp/post/" + item.updateId);
+            intent.putExtra("title", item.title);
+            startActivity(intent);
         });
     }
 
-    private void startAutoUpdate() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadNews();
-                handler.postDelayed(this, 300000); // 5 минут
-            }
-        }, 300000);
-    }
+    private void loadNews() {
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+        executor.execute(() -> {
+            try {
+                URL url = new URL("https://ganjo1st.github.io/NovikonApp/data/news.json");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+                connection.disconnect();
+
+                JSONObject json = new JSONObject(response.toString());
+                JSONObject data = json.getJSONObject("data");
+                JSONArray result = data.getJSONArray("result");
+
+                newsList.clear();
+                for (int i = 0; i < result.length(); i++) {
+                    JSONObject post = result.getJSONObject(i);
+                    JSONObject channelPost = post.getJSONObject("channel_post");
+                    String caption = channelPost.getString("caption");
+                    int date = channelPost.getInt("date");
+
+                    String title = caption.split("\n")[0];
+                    String fullText = caption;
+                    String description = caption.length() > 150 ? caption.substring(0, 150) + "..." : caption;
+
+                    // Получаем фото
+                    String photoUrl = null;
+                    if (channelPost.has("photo")) {
+                        JSONArray photos = channelPost.getJSONArray("photo");
+                        if (photos.length() > 0) {
+                            JSONObject lastPhoto = photos.getJSONObject(photos.length() - 1);
+                            photoUrl = "https://picsum.photos/seed/" + post.getInt("update_id") + "/800/400";
+                        }
+                    }
+
+                    NewsItem item = new NewsItem(
+                            post.getInt("update_id"),
+                            title,
+                            description,
+                            fullText,
+                            date,
+                            photoUrl,
+                            caption
+                    );
+                    newsList.add(item);
+                }
+
+                mainHandler.post(() -> {
+                    adapter.notifyDataSetChanged();
+                    progressBar.setVisibility(ProgressBar.GONE);
+                });
+
+            } catch (Exception e) {
+                Log.e("Novikon", "Ошибка загрузки новостей", e);
+                mainHandler.post(() -> {
+                    progressBar.setVisibility(ProgressBar.GONE);
+                    Toast.makeText(MainActivity.this, "Не удалось загрузить новости", Toast.LENGTH_LONG).show();
+                });
+            }
+        });
     }
 }
