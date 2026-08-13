@@ -1,0 +1,10 @@
+include:
+  - public
+exclude:
+  - app
+  - build
+  - .gradle
+  - app-debug.apk
+  - "*.apk"
+  - NovikonApp_*.apk
+  - NovikonApp.zip
