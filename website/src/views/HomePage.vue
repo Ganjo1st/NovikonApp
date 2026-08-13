@@ -20,12 +20,14 @@ const error = ref(null);
 
 onMounted(async () => {
   try {
-    const response = await fetch('/data/news.json');
+    // Исправленный путь — без /data/, так как файл лежит в корне public/
+    const response = await fetch('/NovikonApp/data/news.json');
     if (!response.ok) throw new Error('Не удалось загрузить новости');
     const data = await response.json();
     newsData.value = data.data.result || [];
   } catch (err) {
     error.value = err.message;
+    console.error('Ошибка загрузки новостей:', err);
   } finally {
     loading.value = false;
   }
