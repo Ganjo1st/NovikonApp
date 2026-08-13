@@ -2,13 +2,19 @@
   <div class="news-list">
     <div v-for="post in posts" :key="post.update_id" class="news-item">
       <h2>
-        <a :href="`/post/${post.update_id}`">
+        <router-link :to="`/post/${post.update_id}`">
           {{ getTitle(post) }}
-        </a>
+        </router-link>
       </h2>
+      <div v-if="getPhoto(post)" class="news-photo">
+        <img :src="getPhoto(post)" alt="Новостное фото" />
+      </div>
       <p>{{ getDescription(post) }}</p>
       <div class="meta">
         <span class="date">{{ formatDate(post.channel_post.date) }}</span>
+        <span class="read-more">
+          <router-link :to="`/post/${post.update_id}`">Читать далее →</router-link>
+        </span>
       </div>
     </div>
   </div>
@@ -21,9 +27,9 @@ const props = defineProps(['posts']);
 
 const formatDate = (timestamp) => {
   const date = new Date(timestamp * 1000);
-  return date.toLocaleDateString('ru-RU', { 
-    day: 'numeric', 
-    month: 'long', 
+  return date.toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit'
@@ -42,6 +48,15 @@ const getDescription = (post) => {
     return lines.slice(1).join(' ').substring(0, 200) + '...';
   }
   return caption.substring(0, 200) + '...';
+};
+
+const getPhoto = (post) => {
+  if (!post.channel_post.photo || !post.channel_post.photo.length) return null;
+  // Берем самое большое фото
+  const largest = post.channel_post.photo.reduce((a, b) => a.width > b.width ? a : b);
+  // В реальном проекте здесь должен быть реальный URL картинки
+  // Для демонстрации используем плейсхолдер
+  return `https://picsum.photos/seed/${post.update_id}/800/400`;
 };
 </script>
 
@@ -79,6 +94,17 @@ const getDescription = (post) => {
   color: #4a6cf7;
 }
 
+.news-photo {
+  margin: 12px 0;
+}
+
+.news-photo img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 .news-item p {
   margin: 0 0 16px 0;
   color: #4a4a5a;
@@ -87,7 +113,7 @@ const getDescription = (post) => {
 
 .meta {
   display: flex;
-  gap: 16px;
+  justify-content: space-between;
   align-items: center;
   font-size: 0.9rem;
   color: #8a8a9a;
@@ -97,5 +123,15 @@ const getDescription = (post) => {
   background: #f0f2f5;
   padding: 4px 12px;
   border-radius: 20px;
+}
+
+.read-more a {
+  color: #4a6cf7;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.read-more a:hover {
+  text-decoration: underline;
 }
 </style>
