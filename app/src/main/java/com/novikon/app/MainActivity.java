@@ -20,7 +20,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,15 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private ExecutorService executor = Executors.newSingleThreadExecutor();
     private Handler mainHandler = new Handler(Looper.getMainLooper());
     private SharedPreferences prefs;
-    private boolean isDarkTheme = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Загружаем сохраненную тему ДО создания Activity
+        // Загружаем тему
         prefs = getSharedPreferences("settings", MODE_PRIVATE);
-        isDarkTheme = prefs.getBoolean("dark_theme", false);
-
-        // Применяем тему через делегат
+        boolean isDarkTheme = prefs.getBoolean("dark_theme", false);
         if (isDarkTheme) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -62,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         themeToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs.edit().putBoolean("dark_theme", isChecked).apply();
-            // Перезапускаем Activity для применения темы
             recreate();
         });
 
@@ -74,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
         newsListView.setOnItemClickListener((parent, view, position, id) -> {
             NewsItem item = newsList.get(position);
             Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-            intent.putExtra("url", "https://ganjo1st.github.io/NovikonApp/post/" + item.updateId);
+            // Используем index.html с параметром post
+            String postUrl = "https://ganjo1st.github.io/NovikonApp/index.html?post=" + item.updateId;
+            intent.putExtra("url", postUrl);
             intent.putExtra("title", item.title);
             startActivity(intent);
         });
@@ -89,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 connection.setRequestMethod("GET");
                 connection.setConnectTimeout(10000);
                 connection.setReadTimeout(10000);
+                connection.setRequestProperty("Cache-Control", "no-cache");
 
                 int responseCode = connection.getResponseCode();
                 if (responseCode != 200) {
@@ -123,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     if (channelPost.has("photo")) {
                         JSONArray photos = channelPost.getJSONArray("photo");
                         if (photos.length() > 0) {
+                            JSONObject lastPhoto = photos.getJSONObject(photos.length() - 1);
                             photoUrl = "https://picsum.photos/seed/" + post.getInt("update_id") + "/800/400";
                         }
                     }
@@ -139,6 +138,11 @@ public class MainActivity extends AppCompatActivity {
                     newsList.add(item);
                 }
 
+                // Сортировка: сначала свежие (по убыванию date)
+                // Оставляем как есть — данные из Telegram уже в правильном порядке
+                // Но на всякий случай сортируем вручную
+                newsList.sort((a, b) -> Integer.compare(b.date, a.date));
+
                 mainHandler.post(() -> {
                     adapter.notifyDataSetChanged();
                     progressBar.setVisibility(ProgressBar.GONE);
@@ -148,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Novikon", "Ошибка загрузки новостей", e);
                 mainHandler.post(() -> {
                     progressBar.setVisibility(ProgressBar.GONE);
-                    Toast.makeText(MainActivity.this, "Не удалось загрузить новости: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Не удалось загрузить новости", Toast.LENGTH_LONG).show();
                 });
             }
         });

@@ -1,6 +1,7 @@
 package com.novikon.app;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -13,6 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 public class WebViewActivity extends AppCompatActivity {
     private WebView webView;
     private ProgressBar progressBar;
+    private Handler timeoutHandler = new Handler();
+    private Runnable timeoutRunnable = () -> {
+        progressBar.setVisibility(View.GONE);
+        Toast.makeText(WebViewActivity.this, "Превышено время загрузки", Toast.LENGTH_SHORT).show();
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +42,35 @@ public class WebViewActivity extends AppCompatActivity {
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setSupportZoom(true);
+        webView.getSettings().setAllowContentAccess(true);
+        webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setCacheMode(android.webkit.WebSettings.LOAD_NO_CACHE);
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 progressBar.setVisibility(View.GONE);
+                timeoutHandler.removeCallbacks(timeoutRunnable);
             }
 
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(WebViewActivity.this, "Ошибка загрузки: " + description, Toast.LENGTH_SHORT).show();
+                timeoutHandler.removeCallbacks(timeoutRunnable);
+                Toast.makeText(WebViewActivity.this, "Ошибка загрузки", Toast.LENGTH_SHORT).show();
             }
         });
 
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress < 100) {
+                if (newProgress < 100 && progressBar.getVisibility() != View.VISIBLE) {
                     progressBar.setVisibility(View.VISIBLE);
-                } else {
+                    timeoutHandler.postDelayed(timeoutRunnable, 15000);
+                } else if (newProgress >= 100) {
                     progressBar.setVisibility(View.GONE);
+                    timeoutHandler.removeCallbacks(timeoutRunnable);
                 }
             }
         });
