@@ -23,8 +23,10 @@
     <application
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:debuggable="true"
         android:extractNativeLibs="true"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -32,13 +34,20 @@
         android:theme="@style/Theme.NovikonApp" >
         <activity
             android:name="com.novikon.app.MainActivity"
-            android:exported="true" >
+            android:configChanges="uiMode|orientation|screenSize"
+            android:exported="true"
+            android:theme="@style/Theme.NovikonApp" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.novikon.app.WebViewActivity"
+            android:configChanges="uiMode|orientation|screenSize"
+            android:exported="false"
+            android:theme="@style/Theme.NovikonApp" />
         <activity
             android:name="com.yandex.mobile.ads.common.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"

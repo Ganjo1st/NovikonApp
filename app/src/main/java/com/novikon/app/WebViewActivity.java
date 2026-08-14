@@ -16,6 +16,7 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Наследуем тему от MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
 
@@ -41,6 +42,7 @@ public class WebViewActivity extends AppCompatActivity {
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(false);
+        webView.getSettings().setSupportZoom(true);
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -51,7 +53,7 @@ public class WebViewActivity extends AppCompatActivity {
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(WebViewActivity.this, "Ошибка загрузки страницы", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WebViewActivity.this, "Ошибка загрузки: " + description, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -84,7 +86,7 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (webView.canGoBack()) {
+        if (webView != null && webView.canGoBack()) {
             webView.goBack();
         } else {
             super.onBackPressed();

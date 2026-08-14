@@ -18,7 +18,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -38,7 +41,13 @@ public class MainActivity extends AppCompatActivity {
         // Загружаем сохраненную тему ДО создания Activity
         prefs = getSharedPreferences("settings", MODE_PRIVATE);
         isDarkTheme = prefs.getBoolean("dark_theme", false);
-        applyTheme(isDarkTheme);
+
+        // Применяем тему
+        if (isDarkTheme) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -54,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Обработчик переключения темы
         themeToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            isDarkTheme = isChecked;
-            applyTheme(isChecked);
-            // Сохраняем настройку
             prefs.edit().putBoolean("dark_theme", isChecked).apply();
             // Пересоздаем Activity для применения темы
             recreate();
@@ -65,8 +71,10 @@ public class MainActivity extends AppCompatActivity {
         adapter = new NewsAdapter(this, newsList);
         newsListView.setAdapter(adapter);
 
+        // Загружаем новости
         loadNews();
 
+        // Обработчик клика по новости
         newsListView.setOnItemClickListener((parent, view, position, id) -> {
             NewsItem item = newsList.get(position);
             Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
@@ -76,14 +84,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void applyTheme(boolean dark) {
-        if (dark) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-    }
-
     private void loadNews() {
         progressBar.setVisibility(ProgressBar.VISIBLE);
         executor.execute(() -> {
@@ -91,8 +91,14 @@ public class MainActivity extends AppCompatActivity {
                 URL url = new URL("https://ganjo1st.github.io/NovikonApp/data/news.json");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setConnectTimeout(5000);
-                connection.setReadTimeout(5000);
+                connection.setConnectTimeout(10000);
+                connection.setReadTimeout(10000);
+                connection.setRequestProperty("Cache-Control", "no-cache");
+
+                int responseCode = connection.getResponseCode();
+                if (responseCode != 200) {
+                    throw new Exception("HTTP error: " + responseCode);
+                }
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
@@ -103,11 +109,14 @@ public class MainActivity extends AppCompatActivity {
                 reader.close();
                 connection.disconnect();
 
+                // Парсим JSON
                 JSONObject json = new JSONObject(response.toString());
                 JSONObject data = json.getJSONObject("data");
                 JSONArray result = data.getJSONArray("result");
 
                 newsList.clear();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm", new Locale("ru"));
+
                 for (int i = 0; i < result.length(); i++) {
                     JSONObject post = result.getJSONObject(i);
                     JSONObject channelPost = post.getJSONObject("channel_post");
@@ -118,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     String fullText = caption;
                     String description = caption.length() > 150 ? caption.substring(0, 150) + "..." : caption;
 
+                    // Получаем фото
                     String photoUrl = null;
                     if (channelPost.has("photo")) {
                         JSONArray photos = channelPost.getJSONArray("photo");
@@ -148,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Novikon", "Ошибка загрузки новостей", e);
                 mainHandler.post(() -> {
                     progressBar.setVisibility(ProgressBar.GONE);
-                    Toast.makeText(MainActivity.this, "Не удалось загрузить новости", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Не удалось загрузить новости: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
             }
         });
