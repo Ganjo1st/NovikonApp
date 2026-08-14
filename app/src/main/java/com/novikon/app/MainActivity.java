@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("settings", MODE_PRIVATE);
         isDarkTheme = prefs.getBoolean("dark_theme", false);
 
-        // Применяем тему
+        // Применяем тему через делегат
         if (isDarkTheme) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         // Обработчик переключения темы
         themeToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs.edit().putBoolean("dark_theme", isChecked).apply();
-            // Пересоздаем Activity для применения темы
+            // Перезапускаем Activity для применения темы
             recreate();
         });
 
@@ -93,12 +93,6 @@ public class MainActivity extends AppCompatActivity {
                 connection.setRequestMethod("GET");
                 connection.setConnectTimeout(10000);
                 connection.setReadTimeout(10000);
-                connection.setRequestProperty("Cache-Control", "no-cache");
-
-                int responseCode = connection.getResponseCode();
-                if (responseCode != 200) {
-                    throw new Exception("HTTP error: " + responseCode);
-                }
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
@@ -109,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 reader.close();
                 connection.disconnect();
 
-                // Парсим JSON
                 JSONObject json = new JSONObject(response.toString());
                 JSONObject data = json.getJSONObject("data");
                 JSONArray result = data.getJSONArray("result");
@@ -133,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         JSONArray photos = channelPost.getJSONArray("photo");
                         if (photos.length() > 0) {
                             JSONObject lastPhoto = photos.getJSONObject(photos.length() - 1);
+                            // Используем picsum.photos для генерации картинки по ID новости
                             photoUrl = "https://picsum.photos/seed/" + post.getInt("update_id") + "/800/400";
                         }
                     }
@@ -158,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Novikon", "Ошибка загрузки новостей", e);
                 mainHandler.post(() -> {
                     progressBar.setVisibility(ProgressBar.GONE);
-                    Toast.makeText(MainActivity.this, "Не удалось загрузить новости: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Не удалось загрузить новости", Toast.LENGTH_LONG).show();
                 });
             }
         });
