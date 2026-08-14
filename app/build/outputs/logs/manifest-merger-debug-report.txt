@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:2:1-37:12
-INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:2:1-37:12
-INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:2:1-37:12
-INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:2:1-37:12
+ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:2:1-35:12
+INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:2:1-35:12
+INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:2:1-35:12
+INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:2:1-35:12
 MERGED from [com.google.android.material:material:1.10.0] /home/codespace/.gradle/caches/transforms-4/34edadc5304545bc9b9ecd30f3b22e45/transformed/material-1.10.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/codespace/.gradle/caches/transforms-4/2fdc36888cf5758cef574003bb4919f5/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
 MERGED from [com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:2:1-44:12
@@ -129,8 +129,8 @@ MERGED from [io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/ca
 	android:name
 		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:6:22-76
 application
-ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:8:5-36:19
-INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:8:5-36:19
+ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:8:5-34:19
+INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:8:5-34:19
 MERGED from [com.google.android.material:material:1.10.0] /home/codespace/.gradle/caches/transforms-4/34edadc5304545bc9b9ecd30f3b22e45/transformed/material-1.10.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.10.0] /home/codespace/.gradle/caches/transforms-4/34edadc5304545bc9b9ecd30f3b22e45/transformed/material-1.10.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/codespace/.gradle/caches/transforms-4/2fdc36888cf5758cef574003bb4919f5/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -168,55 +168,51 @@ MERGED from [com.android.installreferrer:installreferrer:2.2] /home/codespace/.g
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.13.1] /home/codespace/.gradle/caches/transforms-4/4b72087d23b894668e1868859acd25a6/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:15:9-35
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:13:9-35
 	android:label
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:13:9-41
-	android:fullBackupContent
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:11:9-54
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:11:9-41
 	tools:ignore
 		ADDED from [io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:12:18-57
 	android:roundIcon
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:14:9-54
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:12:9-54
 	tools:targetApi
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:17:9-29
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:15:9-29
 	android:icon
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:12:9-43
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:10:9-43
 	android:allowBackup
 		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:9:9-35
 	android:theme
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:16:9-48
-	android:dataExtractionRules
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:10:9-65
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:14:9-48
 activity#com.novikon.app.MainActivity
-ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:19:9-28:20
+ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:17:9-26:20
 	android:exported
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:21:13-36
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:19:13-36
 	android:configChanges
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:22:13-66
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:20:13-66
 	android:theme
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:23:13-52
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:21:13-52
 	android:name
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:20:13-41
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:18:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:24:13-27:29
+ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:22:13-25:29
 action#android.intent.action.MAIN
-ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:25:17-69
+ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:23:17-69
 	android:name
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:25:25-66
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:23:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:26:17-77
+ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:24:17-77
 	android:name
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:26:27-74
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:24:27-74
 activity#com.novikon.app.WebViewActivity
-ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:30:9-34:55
+ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:28:9-32:55
 	android:exported
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:32:13-37
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:30:13-37
 	android:configChanges
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:33:13-66
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:31:13-66
 	android:theme
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:34:13-52
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:32:13-52
 	android:name
-		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:31:13-44
+		ADDED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml:29:13-44
 uses-sdk
 INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /workspaces/NovikonApp/app/src/main/AndroidManifest.xml

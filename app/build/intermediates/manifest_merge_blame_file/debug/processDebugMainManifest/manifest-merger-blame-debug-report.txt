@@ -36,221 +36,217 @@
 21-->[com.android.installreferrer:installreferrer:2.2] /home/codespace/.gradle/caches/transforms-4/97aa1933021a6d6012051306c93dfa39/transformed/jetified-installreferrer-2.2/AndroidManifest.xml:9:22-107
 22
 23    <application
-23-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:8:5-36:19
+23-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:8:5-34:19
 24        android:allowBackup="true"
 24-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:9:9-35
 25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 25-->[androidx.core:core:1.13.1] /home/codespace/.gradle/caches/transforms-4/4b72087d23b894668e1868859acd25a6/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
-26        android:dataExtractionRules="@xml/data_extraction_rules"
-26-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:10:9-65
-27        android:debuggable="true"
-28        android:extractNativeLibs="true"
-29        android:fullBackupContent="@xml/backup_rules"
-29-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:11:9-54
-30        android:icon="@mipmap/ic_launcher"
-30-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:12:9-43
-31        android:label="@string/app_name"
-31-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:13:9-41
-32        android:roundIcon="@mipmap/ic_launcher_round"
-32-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:14:9-54
-33        android:supportsRtl="true"
-33-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:15:9-35
-34        android:theme="@style/Theme.NovikonApp" >
-34-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:16:9-48
-35        <activity
-35-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:19:9-28:20
-36            android:name="com.novikon.app.MainActivity"
-36-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:20:13-41
-37            android:configChanges="uiMode|orientation|screenSize"
-37-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:22:13-66
-38            android:exported="true"
-38-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:21:13-36
-39            android:theme="@style/Theme.NovikonApp" >
-39-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:23:13-52
-40            <intent-filter>
-40-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:24:13-27:29
-41                <action android:name="android.intent.action.MAIN" />
-41-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:25:17-69
-41-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:25:25-66
-42
-43                <category android:name="android.intent.category.LAUNCHER" />
-43-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:26:17-77
-43-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:26:27-74
-44            </intent-filter>
-45        </activity>
-46        <activity
-46-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:30:9-34:55
-47            android:name="com.novikon.app.WebViewActivity"
-47-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:31:13-44
-48            android:configChanges="uiMode|orientation|screenSize"
-48-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:33:13-66
-49            android:exported="false"
-49-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:32:13-37
-50            android:theme="@style/Theme.NovikonApp" />
-50-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:34:13-52
-51        <activity
-51-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:14:9-19:46
-52            android:name="com.yandex.mobile.ads.common.AdActivity"
-52-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:15:13-67
-53            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-53-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:16:13-122
-54            android:enableOnBackInvokedCallback="false"
-54-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:17:13-56
-55            android:theme="@style/MonetizationAdsInternal.AdActivity" />
-55-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:18:13-70
-56
-57        <provider
-57-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:21:9-24:40
-58            android:name="com.yandex.mobile.ads.core.initializer.MobileAdsInitializeProvider"
-58-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:22:13-94
-59            android:authorities="com.novikon.app.MobileAdsInitializeProvider"
-59-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:23:13-79
-60            android:exported="false" />
-60-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:24:13-37
-61
-62        <activity
-62-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:26:9-31:46
-63            android:name="com.yandex.mobile.ads.features.debugpanel.ui.IntegrationInspectorActivity"
-63-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:27:13-101
-64            android:enableOnBackInvokedCallback="false"
-64-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:28:13-56
-65            android:exported="false"
-65-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:29:13-37
-66            android:theme="@style/DebugPanelTheme" />
-66-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:30:13-51
-67
-68        <provider
-68-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:33:9-41:20
-69            android:name="com.yandex.mobile.ads.features.debugpanel.data.local.DebugPanelFileProvider"
-69-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:34:13-103
-70            android:authorities="com.novikon.app.monetization.ads.inspector.fileprovider"
-70-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:35:13-91
-71            android:exported="false"
-71-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:36:13-37
-72            android:grantUriPermissions="true" >
-72-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:37:13-47
-73            <meta-data
-73-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:38:13-40:66
-74                android:name="android.support.FILE_PROVIDER_PATHS"
-74-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:39:17-67
-75                android:resource="@xml/debug_panel_file_paths" />
-75-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:40:17-63
-76        </provider> <!-- AppMetrica Analytics: common service -->
-77        <service
-77-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:15:9-26:19
-78            android:name="io.appmetrica.analytics.internal.AppMetricaService"
-78-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:16:13-78
-79            android:enabled="true"
-79-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:17:13-35
-80            android:exported="false" >
-80-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:18:13-37
-81            <intent-filter>
-81-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:19:13-25:29
-82                <category android:name="android.intent.category.DEFAULT" />
-82-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:20:17-76
-82-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:20:27-73
+26        android:debuggable="true"
+27        android:extractNativeLibs="true"
+28        android:icon="@mipmap/ic_launcher"
+28-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:10:9-43
+29        android:label="@string/app_name"
+29-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:11:9-41
+30        android:roundIcon="@mipmap/ic_launcher_round"
+30-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:12:9-54
+31        android:supportsRtl="true"
+31-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:13:9-35
+32        android:theme="@style/Theme.NovikonApp" >
+32-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:14:9-48
+33        <activity
+33-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:17:9-26:20
+34            android:name="com.novikon.app.MainActivity"
+34-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:18:13-41
+35            android:configChanges="uiMode|orientation|screenSize"
+35-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:20:13-66
+36            android:exported="true"
+36-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:19:13-36
+37            android:theme="@style/Theme.NovikonApp" >
+37-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:21:13-52
+38            <intent-filter>
+38-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:22:13-25:29
+39                <action android:name="android.intent.action.MAIN" />
+39-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:23:17-69
+39-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:23:25-66
+40
+41                <category android:name="android.intent.category.LAUNCHER" />
+41-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:24:17-77
+41-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:24:27-74
+42            </intent-filter>
+43        </activity>
+44        <activity
+44-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:28:9-32:55
+45            android:name="com.novikon.app.WebViewActivity"
+45-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:29:13-44
+46            android:configChanges="uiMode|orientation|screenSize"
+46-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:31:13-66
+47            android:exported="false"
+47-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:30:13-37
+48            android:theme="@style/Theme.NovikonApp" />
+48-->/workspaces/NovikonApp/app/src/main/AndroidManifest.xml:32:13-52
+49        <activity
+49-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:14:9-19:46
+50            android:name="com.yandex.mobile.ads.common.AdActivity"
+50-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:15:13-67
+51            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+51-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:16:13-122
+52            android:enableOnBackInvokedCallback="false"
+52-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:17:13-56
+53            android:theme="@style/MonetizationAdsInternal.AdActivity" />
+53-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:18:13-70
+54
+55        <provider
+55-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:21:9-24:40
+56            android:name="com.yandex.mobile.ads.core.initializer.MobileAdsInitializeProvider"
+56-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:22:13-94
+57            android:authorities="com.novikon.app.MobileAdsInitializeProvider"
+57-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:23:13-79
+58            android:exported="false" />
+58-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:24:13-37
+59
+60        <activity
+60-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:26:9-31:46
+61            android:name="com.yandex.mobile.ads.features.debugpanel.ui.IntegrationInspectorActivity"
+61-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:27:13-101
+62            android:enableOnBackInvokedCallback="false"
+62-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:28:13-56
+63            android:exported="false"
+63-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:29:13-37
+64            android:theme="@style/DebugPanelTheme" />
+64-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:30:13-51
+65
+66        <provider
+66-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:33:9-41:20
+67            android:name="com.yandex.mobile.ads.features.debugpanel.data.local.DebugPanelFileProvider"
+67-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:34:13-103
+68            android:authorities="com.novikon.app.monetization.ads.inspector.fileprovider"
+68-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:35:13-91
+69            android:exported="false"
+69-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:36:13-37
+70            android:grantUriPermissions="true" >
+70-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:37:13-47
+71            <meta-data
+71-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:38:13-40:66
+72                android:name="android.support.FILE_PROVIDER_PATHS"
+72-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:39:17-67
+73                android:resource="@xml/debug_panel_file_paths" />
+73-->[com.yandex.android:mobileads:7.14.1] /home/codespace/.gradle/caches/transforms-4/b8524811b436c273ae2faa77ce6f5e43/transformed/jetified-mobileads-7.14.1/AndroidManifest.xml:40:17-63
+74        </provider> <!-- AppMetrica Analytics: common service -->
+75        <service
+75-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:15:9-26:19
+76            android:name="io.appmetrica.analytics.internal.AppMetricaService"
+76-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:16:13-78
+77            android:enabled="true"
+77-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:17:13-35
+78            android:exported="false" >
+78-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:18:13-37
+79            <intent-filter>
+79-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:19:13-25:29
+80                <category android:name="android.intent.category.DEFAULT" />
+80-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:20:17-76
+80-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:20:27-73
+81
+82                <action android:name="io.appmetrica.analytics.IAppMetricaService" />
+82-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:22:17-85
+82-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:22:25-82
 83
-84                <action android:name="io.appmetrica.analytics.IAppMetricaService" />
-84-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:22:17-85
-84-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:22:25-82
-85
-86                <data android:scheme="appmetrica" />
-86-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:24:17-53
-86-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:24:23-50
-87            </intent-filter>
-88        </service> <!-- To track preinstallations -->
-89        <provider
-89-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:29:9-34:54
-90            android:name="io.appmetrica.analytics.internal.PreloadInfoContentProvider"
-90-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:30:13-87
-91            android:authorities="com.novikon.app.appmetrica.preloadinfo.retail"
-91-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:31:13-81
-92            android:enabled="true"
-92-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:32:13-35
-93            android:exported="true" />
-93-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:33:13-36
-94
-95        <activity
-95-->[com.google.android.gms:play-services-base:18.5.0] /home/codespace/.gradle/caches/transforms-4/ef6db7a8077766b0c6f22196474f8b8a/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:9-173
-96            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-96-->[com.google.android.gms:play-services-base:18.5.0] /home/codespace/.gradle/caches/transforms-4/ef6db7a8077766b0c6f22196474f8b8a/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:19-85
-97            android:exported="false"
-97-->[com.google.android.gms:play-services-base:18.5.0] /home/codespace/.gradle/caches/transforms-4/ef6db7a8077766b0c6f22196474f8b8a/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:146-170
-98            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-98-->[com.google.android.gms:play-services-base:18.5.0] /home/codespace/.gradle/caches/transforms-4/ef6db7a8077766b0c6f22196474f8b8a/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:86-145
-99
-100        <meta-data
-100-->[com.google.android.gms:play-services-basement:18.4.0] /home/codespace/.gradle/caches/transforms-4/ae37fb50a8b0559c4ff113042461e3b2/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
-101            android:name="com.google.android.gms.version"
-101-->[com.google.android.gms:play-services-basement:18.4.0] /home/codespace/.gradle/caches/transforms-4/ae37fb50a8b0559c4ff113042461e3b2/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
-102            android:value="@integer/google_play_services_version" />
-102-->[com.google.android.gms:play-services-basement:18.4.0] /home/codespace/.gradle/caches/transforms-4/ae37fb50a8b0559c4ff113042461e3b2/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
-103
-104        <provider
-104-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
-105            android:name="androidx.startup.InitializationProvider"
-105-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
-106            android:authorities="com.novikon.app.androidx-startup"
-106-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
-107            android:exported="false" >
-107-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
-108            <meta-data
-108-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
-109                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-109-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
-110                android:value="androidx.startup" />
-110-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
-111            <meta-data
-111-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/codespace/.gradle/caches/transforms-4/b8679a41c3423178b0c4e8107d7b711c/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
-112                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-112-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/codespace/.gradle/caches/transforms-4/b8679a41c3423178b0c4e8107d7b711c/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
-113                android:value="androidx.startup" />
-113-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/codespace/.gradle/caches/transforms-4/b8679a41c3423178b0c4e8107d7b711c/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
-114            <meta-data
-114-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
-115                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-115-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
-116                android:value="androidx.startup" />
-116-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
-117        </provider>
-118
-119        <receiver
-119-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
-120            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-120-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
-121            android:directBootAware="false"
-121-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
-122            android:enabled="true"
-122-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
-123            android:exported="true"
-123-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
-124            android:permission="android.permission.DUMP" >
-124-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
-125            <intent-filter>
-125-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
-126                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-126-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
-126-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
-127            </intent-filter>
-128            <intent-filter>
-128-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
-129                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-129-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
-129-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
-130            </intent-filter>
-131            <intent-filter>
-131-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
-132                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-132-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
-132-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
-133            </intent-filter>
-134            <intent-filter>
-134-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
-135                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-135-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
-135-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
-136            </intent-filter>
-137        </receiver>
-138    </application>
-139
-140</manifest>
+84                <data android:scheme="appmetrica" />
+84-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:24:17-53
+84-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:24:23-50
+85            </intent-filter>
+86        </service> <!-- To track preinstallations -->
+87        <provider
+87-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:29:9-34:54
+88            android:name="io.appmetrica.analytics.internal.PreloadInfoContentProvider"
+88-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:30:13-87
+89            android:authorities="com.novikon.app.appmetrica.preloadinfo.retail"
+89-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:31:13-81
+90            android:enabled="true"
+90-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:32:13-35
+91            android:exported="true" />
+91-->[io.appmetrica.analytics:analytics:7.9.0] /home/codespace/.gradle/caches/transforms-4/f41f4e1fa2a590a4edd2ed85ce92c238/transformed/jetified-analytics-7.9.0/AndroidManifest.xml:33:13-36
+92
+93        <activity
+93-->[com.google.android.gms:play-services-base:18.5.0] /home/codespace/.gradle/caches/transforms-4/ef6db7a8077766b0c6f22196474f8b8a/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:9-173
+94            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+94-->[com.google.android.gms:play-services-base:18.5.0] /home/codespace/.gradle/caches/transforms-4/ef6db7a8077766b0c6f22196474f8b8a/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:19-85
+95            android:exported="false"
+95-->[com.google.android.gms:play-services-base:18.5.0] /home/codespace/.gradle/caches/transforms-4/ef6db7a8077766b0c6f22196474f8b8a/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:146-170
+96            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+96-->[com.google.android.gms:play-services-base:18.5.0] /home/codespace/.gradle/caches/transforms-4/ef6db7a8077766b0c6f22196474f8b8a/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:86-145
+97
+98        <meta-data
+98-->[com.google.android.gms:play-services-basement:18.4.0] /home/codespace/.gradle/caches/transforms-4/ae37fb50a8b0559c4ff113042461e3b2/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
+99            android:name="com.google.android.gms.version"
+99-->[com.google.android.gms:play-services-basement:18.4.0] /home/codespace/.gradle/caches/transforms-4/ae37fb50a8b0559c4ff113042461e3b2/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
+100            android:value="@integer/google_play_services_version" />
+100-->[com.google.android.gms:play-services-basement:18.4.0] /home/codespace/.gradle/caches/transforms-4/ae37fb50a8b0559c4ff113042461e3b2/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
+101
+102        <provider
+102-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+103            android:name="androidx.startup.InitializationProvider"
+103-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+104            android:authorities="com.novikon.app.androidx-startup"
+104-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+105            android:exported="false" >
+105-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+106            <meta-data
+106-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+107                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+107-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+108                android:value="androidx.startup" />
+108-->[androidx.emoji2:emoji2:1.3.0] /home/codespace/.gradle/caches/transforms-4/a400007c6d48ada7484cf26e33e5327d/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+109            <meta-data
+109-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/codespace/.gradle/caches/transforms-4/b8679a41c3423178b0c4e8107d7b711c/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+110                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+110-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/codespace/.gradle/caches/transforms-4/b8679a41c3423178b0c4e8107d7b711c/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+111                android:value="androidx.startup" />
+111-->[androidx.lifecycle:lifecycle-process:2.6.2] /home/codespace/.gradle/caches/transforms-4/b8679a41c3423178b0c4e8107d7b711c/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+112            <meta-data
+112-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+113                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+113-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+114                android:value="androidx.startup" />
+114-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+115        </provider>
+116
+117        <receiver
+117-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+118            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+118-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+119            android:directBootAware="false"
+119-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+120            android:enabled="true"
+120-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+121            android:exported="true"
+121-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+122            android:permission="android.permission.DUMP" >
+122-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+123            <intent-filter>
+123-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+124                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+124-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+124-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+125            </intent-filter>
+126            <intent-filter>
+126-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+127                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+127-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+127-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+128            </intent-filter>
+129            <intent-filter>
+129-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+130                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+130-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+130-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+131            </intent-filter>
+132            <intent-filter>
+132-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+133                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+133-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+133-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/codespace/.gradle/caches/transforms-4/fc3984f948061227533b38c8be54cfb0/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+134            </intent-filter>
+135        </receiver>
+136    </application>
+137
+138</manifest>

@@ -1,4 +1,5 @@
-com.novikon.app:xml/debug_panel_file_paths = 0x7f140000
+com.novikon.app:xml/debug_panel_file_paths = 0x7f140002
+com.novikon.app:xml/data_extraction_rules = 0x7f140001
 com.novikon.app:styleable/include = 0x7f1300a5
 com.novikon.app:styleable/ViewPagerFixedSizeLayout = 0x7f1300a2
 com.novikon.app:styleable/View = 0x7f13009f
@@ -3856,6 +3857,7 @@ com.novikon.app:color/design_dark_default_color_on_primary = 0x7f05004b
 com.novikon.app:attr/textBackgroundPanY = 0x7f03047f
 com.novikon.app:id/disableScroll = 0x7f0900ac
 com.novikon.app:color/common_google_signin_btn_text_dark_disabled = 0x7f050034
+com.novikon.app:xml/backup_rules = 0x7f140000
 com.novikon.app:color/m3_checkbox_button_tint = 0x7f05008f
 com.novikon.app:anim/monetization_ads_internal_bottom_adtune_dialog_animation_in = 0x7f010029
 com.novikon.app:color/m3_sys_color_light_outline = 0x7f0501e7
