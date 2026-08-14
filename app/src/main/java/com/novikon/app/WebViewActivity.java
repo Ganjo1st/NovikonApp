@@ -1,6 +1,7 @@
 package com.novikon.app;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -13,10 +14,14 @@ import androidx.appcompat.widget.Toolbar;
 public class WebViewActivity extends AppCompatActivity {
     private WebView webView;
     private ProgressBar progressBar;
+    private Handler timeoutHandler = new Handler();
+    private Runnable timeoutRunnable = () -> {
+        progressBar.setVisibility(View.GONE);
+        Toast.makeText(WebViewActivity.this, "Превышено время загрузки", Toast.LENGTH_SHORT).show();
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Наследуем тему от MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
 
@@ -25,11 +30,7 @@ public class WebViewActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             String title = getIntent().getStringExtra("title");
-            if (title != null && !title.isEmpty()) {
-                getSupportActionBar().setTitle(title);
-            } else {
-                getSupportActionBar().setTitle("Новость");
-            }
+            getSupportActionBar().setTitle(title != null ? title : "Новость");
         }
 
         webView = findViewById(R.id.webView);
@@ -48,27 +49,31 @@ public class WebViewActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 progressBar.setVisibility(View.GONE);
+                timeoutHandler.removeCallbacks(timeoutRunnable);
             }
 
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(WebViewActivity.this, "Ошибка загрузки: " + description, Toast.LENGTH_SHORT).show();
+                timeoutHandler.removeCallbacks(timeoutRunnable);
+                Toast.makeText(WebViewActivity.this, "Ошибка: " + description, Toast.LENGTH_SHORT).show();
             }
         });
 
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress < 100) {
+                if (newProgress < 100 && progressBar.getVisibility() != View.VISIBLE) {
                     progressBar.setVisibility(View.VISIBLE);
-                } else {
+                    timeoutHandler.postDelayed(timeoutRunnable, 15000);
+                } else if (newProgress >= 100) {
                     progressBar.setVisibility(View.GONE);
+                    timeoutHandler.removeCallbacks(timeoutRunnable);
                 }
             }
         });
 
-        // Загружаем URL
+        // Загружаем страницу с обработкой ошибок
         String url = getIntent().getStringExtra("url");
         if (url != null && !url.isEmpty()) {
             webView.loadUrl(url);

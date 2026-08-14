@@ -39,12 +39,14 @@ public class NewsAdapter extends ArrayAdapter<NewsItem> {
         titleView.setText(item.title);
         descView.setText(item.description);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm", new Locale("ru"));
         dateView.setText(sdf.format(new Date(item.date * 1000L)));
 
+        // Загружаем картинку, если есть
         if (item.photoUrl != null && !item.photoUrl.isEmpty()) {
             Glide.with(context)
                     .load(item.photoUrl)
+                    .placeholder(null)
                     .into(imageView);
             imageView.setVisibility(View.VISIBLE);
         } else {
