@@ -6,6 +6,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -20,23 +21,40 @@ public class WebViewActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getIntent().getStringExtra("title") != null ? 
-                getIntent().getStringExtra("title") : "Новость");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            String title = getIntent().getStringExtra("title");
+            if (title != null && !title.isEmpty()) {
+                getSupportActionBar().setTitle(title);
+            } else {
+                getSupportActionBar().setTitle("Новость");
+            }
+        }
 
         webView = findViewById(R.id.webView);
         progressBar = findViewById(R.id.progressBar);
 
+        // Настройка WebView
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setDisplayZoomControls(false);
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 progressBar.setVisibility(View.GONE);
             }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(WebViewActivity.this, "Ошибка загрузки страницы", Toast.LENGTH_SHORT).show();
+            }
         });
+
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -48,9 +66,13 @@ public class WebViewActivity extends AppCompatActivity {
             }
         });
 
+        // Загружаем URL
         String url = getIntent().getStringExtra("url");
-        if (url != null) {
+        if (url != null && !url.isEmpty()) {
             webView.loadUrl(url);
+        } else {
+            Toast.makeText(this, "Ссылка не найдена", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
