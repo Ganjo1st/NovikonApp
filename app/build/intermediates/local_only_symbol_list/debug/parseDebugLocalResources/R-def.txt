@@ -7,8 +7,11 @@ color black
 color purple_200
 color purple_500
 color purple_700
+color purple_900
 color teal_200
+color teal_300
 color teal_700
+color teal_900
 color text_dark
 color text_light
 color white
@@ -30,6 +33,5 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name
 style Theme.NovikonApp
-style Theme.NovikonApp.Dark
 xml backup_rules
 xml data_extraction_rules

@@ -56,12 +56,10 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         themeToggle = findViewById(R.id.themeToggle);
 
-        // Устанавливаем состояние кнопки
         themeToggle.setChecked(isDarkTheme);
         themeToggle.setTextOn("🌙");
         themeToggle.setTextOff("☀️");
 
-        // Обработчик переключения темы
         themeToggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs.edit().putBoolean("dark_theme", isChecked).apply();
             // Перезапускаем Activity для применения темы
@@ -71,10 +69,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new NewsAdapter(this, newsList);
         newsListView.setAdapter(adapter);
 
-        // Загружаем новости
         loadNews();
 
-        // Обработчик клика по новости
         newsListView.setOnItemClickListener((parent, view, position, id) -> {
             NewsItem item = newsList.get(position);
             Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
@@ -94,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
                 connection.setConnectTimeout(10000);
                 connection.setReadTimeout(10000);
 
+                int responseCode = connection.getResponseCode();
+                if (responseCode != 200) {
+                    throw new Exception("HTTP error: " + responseCode);
+                }
+
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
                 String line;
@@ -108,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray result = data.getJSONArray("result");
 
                 newsList.clear();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm", new Locale("ru"));
 
                 for (int i = 0; i < result.length(); i++) {
                     JSONObject post = result.getJSONObject(i);
@@ -117,16 +117,12 @@ public class MainActivity extends AppCompatActivity {
                     int date = channelPost.getInt("date");
 
                     String title = caption.split("\n")[0];
-                    String fullText = caption;
                     String description = caption.length() > 150 ? caption.substring(0, 150) + "..." : caption;
 
-                    // Получаем фото
                     String photoUrl = null;
                     if (channelPost.has("photo")) {
                         JSONArray photos = channelPost.getJSONArray("photo");
                         if (photos.length() > 0) {
-                            JSONObject lastPhoto = photos.getJSONObject(photos.length() - 1);
-                            // Используем picsum.photos для генерации картинки по ID новости
                             photoUrl = "https://picsum.photos/seed/" + post.getInt("update_id") + "/800/400";
                         }
                     }
@@ -135,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             post.getInt("update_id"),
                             title,
                             description,
-                            fullText,
+                            caption,
                             date,
                             photoUrl,
                             caption
@@ -152,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("Novikon", "Ошибка загрузки новостей", e);
                 mainHandler.post(() -> {
                     progressBar.setVisibility(ProgressBar.GONE);
-                    Toast.makeText(MainActivity.this, "Не удалось загрузить новости", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Не удалось загрузить новости: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
             }
         });

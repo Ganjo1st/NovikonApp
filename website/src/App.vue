@@ -29,12 +29,19 @@ onMounted(() => {
   const saved = localStorage.getItem('novikon-theme');
   if (saved === 'dark') {
     darkMode.value = true;
+    document.documentElement.classList.add('dark-theme');
   }
 });
 
 const toggleTheme = () => {
   darkMode.value = !darkMode.value;
-  localStorage.setItem('novikon-theme', darkMode.value ? 'dark' : 'light');
+  if (darkMode.value) {
+    document.documentElement.classList.add('dark-theme');
+    localStorage.setItem('novikon-theme', 'dark');
+  } else {
+    document.documentElement.classList.remove('dark-theme');
+    localStorage.setItem('novikon-theme', 'light');
+  }
 };
 </script>
 
@@ -118,7 +125,7 @@ footer {
   font-size: 0.9rem;
 }
 
-/* Темная тема */
+/* Тёмная тема для сайта */
 .dark-theme {
   --bg: #1a1a2e;
   --text: #e8e8e8;
