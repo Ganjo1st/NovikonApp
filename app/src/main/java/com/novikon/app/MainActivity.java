@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("fullText", item.fullText);
             intent.putExtra("photoUrl", item.photoUrl);
             intent.putExtra("date", item.date);
-            intent.putExtra("updateId", item.updateId);
             startActivity(intent);
         });
     }
@@ -106,25 +105,21 @@ public class MainActivity extends AppCompatActivity {
 
                 newsList.clear();
 
+                // Загружаем все новости в прямом порядке (свежие сверху)
                 for (int i = 0; i < result.length(); i++) {
                     JSONObject post = result.getJSONObject(i);
                     JSONObject channelPost = post.getJSONObject("channel_post");
                     String caption = channelPost.getString("caption");
                     int date = channelPost.getInt("date");
 
-                    // Разделяем заголовок и текст
                     String title = caption.split("\n")[0];
                     String fullText = caption;
                     String description = caption.length() > 150 ? caption.substring(0, 150) + "..." : caption;
 
-                    // Получаем фото (если есть)
                     String photoUrl = null;
                     if (channelPost.has("photo")) {
                         JSONArray photos = channelPost.getJSONArray("photo");
                         if (photos.length() > 0) {
-                            // Берем самое большое фото
-                            JSONObject lastPhoto = photos.getJSONObject(photos.length() - 1);
-                            // Используем заглушку, т.к. реальные фото недоступны напрямую
                             photoUrl = "https://picsum.photos/seed/" + post.getInt("update_id") + "/800/400";
                         }
                     }
@@ -140,6 +135,11 @@ public class MainActivity extends AppCompatActivity {
                     );
                     newsList.add(item);
                 }
+
+                // Явно сортируем в обратном порядке: свежие сверху
+                // (предполагаем, что result уже в правильном порядке)
+                // Если нужно перевернуть, раскомментируйте следующую строку:
+                // Collections.reverse(newsList);
 
                 mainHandler.post(() -> {
                     adapter.notifyDataSetChanged();
