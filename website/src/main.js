@@ -4,27 +4,16 @@ import App from './App.vue';
 import HomePage from './views/HomePage.vue';
 import PostPage from './views/PostPage.vue';
 
-const basePath = '/NovikonApp/';
+const routes = [
+  { path: '/', component: HomePage },
+  { path: '/post/:id', component: PostPage, props: true },
+  { path: '/:pathMatch(.*)*', redirect: '/' },
+];
 
 const router = createRouter({
-  history: createWebHistory(basePath),
-  routes: [
-    { path: '/', component: HomePage },
-    { path: '/post/:id', component: PostPage, props: true },
-    { path: '/:pathMatch(.*)*', redirect: '/' },
-  ],
+  history: createWebHistory('/NovikonApp/'),
+  routes,
 });
-
-// Обработка параметра path из URL (для 404.html)
-const urlParams = new URLSearchParams(window.location.search);
-const pathParam = urlParams.get('path');
-if (pathParam) {
-  const cleanPath = pathParam.replace(/^\/+/, '');
-  if (cleanPath.startsWith('post/')) {
-    const id = cleanPath.replace('post/', '');
-    router.push(`/post/${id}`);
-  }
-}
 
 const app = createApp(App);
 app.use(router);
