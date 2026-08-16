@@ -3,7 +3,7 @@
     <header>
       <nav>
         <div class="logo-container">
-          <img :src="logoImage" alt="Новикон" class="logo" />
+          <span class="logo-icon">📰</span>
           <span class="logo-text">Новикон</span>
         </div>
         <div class="nav-right">
@@ -24,7 +24,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import logoImage from '@/assets/images/logo.svg';
 
 const darkMode = ref(false);
 
@@ -86,9 +85,8 @@ nav {
   gap: 12px;
 }
 
-.logo {
-  height: 40px;
-  width: auto;
+.logo-icon {
+  font-size: 1.8rem;
 }
 
 .logo-text {
@@ -143,7 +141,6 @@ footer {
   border-top: 1px solid rgba(255,255,255,0.05);
 }
 
-/* Притемнение блоков в темной теме */
 .dark-theme .news-item,
 .dark-theme .post-page {
   background: #2a2a4a !important;
