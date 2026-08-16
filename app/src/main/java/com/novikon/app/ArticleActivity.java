@@ -31,6 +31,7 @@ public class ArticleActivity extends AppCompatActivity {
     private ExecutorService executor = Executors.newSingleThreadExecutor();
     private Handler mainHandler = new Handler(Looper.getMainLooper());
     private int updateId;
+    private int likes = 0, dislikes = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,6 @@ public class ArticleActivity extends AppCompatActivity {
         likeBtn = findViewById(R.id.likeBtn);
         dislikeBtn = findViewById(R.id.dislikeBtn);
 
-        // Получаем ID статьи из Intent
         updateId = getIntent().getIntExtra("updateId", 0);
 
         if (updateId == 0) {
@@ -69,11 +69,19 @@ public class ArticleActivity extends AppCompatActivity {
             return;
         }
 
-        // Загружаем полные данные статьи
         loadArticle(updateId);
 
-        likeBtn.setOnClickListener(v -> Toast.makeText(this, "❤️ Спасибо за лайк!", Toast.LENGTH_SHORT).show());
-        dislikeBtn.setOnClickListener(v -> Toast.makeText(this, "👎 Спасибо за отзыв!", Toast.LENGTH_SHORT).show());
+        likeBtn.setOnClickListener(v -> {
+            likes++;
+            likeBtn.setText("❤️ " + likes);
+            Toast.makeText(this, "❤️ Спасибо за лайк!", Toast.LENGTH_SHORT).show();
+        });
+
+        dislikeBtn.setOnClickListener(v -> {
+            dislikes++;
+            dislikeBtn.setText("👎 " + dislikes);
+            Toast.makeText(this, "👎 Спасибо за отзыв!", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void loadArticle(int id) {
@@ -99,7 +107,6 @@ public class ArticleActivity extends AppCompatActivity {
                 JSONObject data = json.getJSONObject("data");
                 JSONArray result = data.getJSONArray("result");
 
-                // Ищем статью с нужным ID
                 for (int i = 0; i < result.length(); i++) {
                     JSONObject post = result.getJSONObject(i);
                     if (post.getInt("update_id") == id) {
@@ -110,7 +117,6 @@ public class ArticleActivity extends AppCompatActivity {
                         String title = caption.split("\n")[0];
                         String fullText = caption;
 
-                        // Получаем фото
                         String photoUrl = null;
                         if (channelPost.has("photo")) {
                             JSONArray photos = channelPost.getJSONArray("photo");
@@ -163,6 +169,11 @@ public class ArticleActivity extends AppCompatActivity {
 
         int views = (int) (Math.random() * 100) + 10;
         viewsView.setText("👁 " + views);
+
+        likes = (int) (Math.random() * 20);
+        dislikes = (int) (Math.random() * 5);
+        likeBtn.setText("❤️ " + likes);
+        dislikeBtn.setText("👎 " + dislikes);
     }
 
     @Override
