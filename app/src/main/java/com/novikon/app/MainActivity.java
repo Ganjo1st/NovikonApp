@@ -66,10 +66,7 @@ public class MainActivity extends AppCompatActivity {
         newsListView.setOnItemClickListener((parent, view, position, id) -> {
             NewsItem item = newsList.get(position);
             Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
-            intent.putExtra("title", item.title);
-            intent.putExtra("fullText", item.fullText);
-            intent.putExtra("photoUrl", item.photoUrl);
-            intent.putExtra("date", item.date);
+            intent.putExtra("updateId", item.updateId); // Передаем только ID
             startActivity(intent);
         });
     }
@@ -105,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
                 newsList.clear();
 
-                // Загружаем все новости в прямом порядке (свежие сверху)
                 for (int i = 0; i < result.length(); i++) {
                     JSONObject post = result.getJSONObject(i);
                     JSONObject channelPost = post.getJSONObject("channel_post");
@@ -113,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                     int date = channelPost.getInt("date");
 
                     String title = caption.split("\n")[0];
-                    String fullText = caption;
                     String description = caption.length() > 150 ? caption.substring(0, 150) + "..." : caption;
 
                     String photoUrl = null;
@@ -128,18 +123,13 @@ public class MainActivity extends AppCompatActivity {
                             post.getInt("update_id"),
                             title,
                             description,
-                            fullText,
+                            caption,
                             date,
                             photoUrl,
                             caption
                     );
                     newsList.add(item);
                 }
-
-                // Явно сортируем в обратном порядке: свежие сверху
-                // (предполагаем, что result уже в правильном порядке)
-                // Если нужно перевернуть, раскомментируйте следующую строку:
-                // Collections.reverse(newsList);
 
                 mainHandler.post(() -> {
                     adapter.notifyDataSetChanged();
