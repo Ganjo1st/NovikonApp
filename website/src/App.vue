@@ -3,7 +3,7 @@
     <header>
       <nav>
         <div class="logo-container">
-          <img src="/NovikonApp/images/logo.svg" alt="Новикон" class="logo" />
+          <img :src="logoImage" alt="Новикон" class="logo" />
           <span class="logo-text">Новикон</span>
         </div>
         <div class="nav-right">
@@ -24,6 +24,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import logoImage from '@/assets/images/logo.svg';
 
 const darkMode = ref(false);
 

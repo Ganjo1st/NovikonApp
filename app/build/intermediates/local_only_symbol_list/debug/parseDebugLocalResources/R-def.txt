@@ -17,6 +17,7 @@ color text_light
 color white
 drawable ic_like
 drawable ic_views
+drawable logo
 id articleDate
 id articleImage
 id articleText
