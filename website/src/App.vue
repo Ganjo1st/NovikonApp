@@ -2,10 +2,13 @@
   <div id="app" :class="{ 'dark-theme': darkMode }">
     <header>
       <nav>
-        <router-link to="/">📰 Novikon News</router-link>
+        <div class="logo-container">
+          <img src="/NovikonApp/images/logo.svg" alt="Новикон" class="logo" />
+          <span class="logo-text">Новикон</span>
+        </div>
         <div class="nav-right">
           <button @click="toggleTheme" class="theme-toggle">
-            {{ darkMode ? '☀️ Светлая' : '🌙 Тёмная' }}
+            {{ darkMode ? '☀️' : '🌙' }}
           </button>
         </div>
       </nav>
@@ -14,7 +17,7 @@
       <router-view />
     </main>
     <footer>
-      <p>&copy; 2026 Novikon. Все новости взяты из открытых источников.</p>
+      <p>&copy; 2026 Новикон. Все новости взяты из открытых источников.</p>
     </footer>
   </div>
 </template>
@@ -25,7 +28,6 @@ import { ref, onMounted } from 'vue';
 const darkMode = ref(false);
 
 onMounted(() => {
-  // Загружаем сохраненную тему
   const saved = localStorage.getItem('novikon-theme');
   if (saved === 'dark') {
     darkMode.value = true;
@@ -35,13 +37,8 @@ onMounted(() => {
 
 const toggleTheme = () => {
   darkMode.value = !darkMode.value;
-  if (darkMode.value) {
-    document.documentElement.classList.add('dark-theme');
-    localStorage.setItem('novikon-theme', 'dark');
-  } else {
-    document.documentElement.classList.remove('dark-theme');
-    localStorage.setItem('novikon-theme', 'light');
-  }
+  localStorage.setItem('novikon-theme', darkMode.value ? 'dark' : 'light');
+  document.documentElement.classList.toggle('dark-theme');
 };
 </script>
 
@@ -60,20 +57,18 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 
-a {
-  color: #4a6cf7;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+body.dark-theme {
+  background: #1a1a2e;
+  color: #e8e8e8;
 }
 
 header {
   background: #1a1a2e;
-  color: white;
-  padding: 16px 20px;
+  padding: 12px 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 nav {
@@ -84,11 +79,22 @@ nav {
   align-items: center;
 }
 
-nav a {
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+}
+
+.logo-text {
   color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
-  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .nav-right {
@@ -101,10 +107,15 @@ nav a {
   background: rgba(255,255,255,0.15);
   border: none;
   color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
+  padding: 8px 12px;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background 0.2s;
 }
 
@@ -123,54 +134,41 @@ footer {
   padding: 20px;
   color: #8a8a9a;
   font-size: 0.9rem;
-}
-
-/* Тёмная тема для сайта */
-.dark-theme {
-  --bg: #1a1a2e;
-  --text: #e8e8e8;
-  --card-bg: #2a2a4a;
-  --card-shadow: rgba(0,0,0,0.3);
-  --meta-bg: #3a3a5a;
-}
-
-.dark-theme body {
-  background: #1a1a2e;
-  color: #e8e8e8;
-}
-
-.dark-theme .news-item {
-  background: #2a2a4a;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-.dark-theme .news-item h2 a {
-  color: #e8e8e8;
-}
-
-.dark-theme .news-item p {
-  color: #b8b8c8;
-}
-
-.dark-theme .date {
-  background: #3a3a5a;
-  color: #b8b8c8;
-}
-
-.dark-theme .post-content {
-  background: #2a2a4a;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-.dark-theme .post-content h1 {
-  color: #e8e8e8;
-}
-
-.dark-theme .text {
-  color: #b8b8c8;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 .dark-theme footer {
   color: #5a5a7a;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Притемнение блоков в темной теме */
+.dark-theme .news-item,
+.dark-theme .post-page {
+  background: #2a2a4a !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+}
+
+.dark-theme .news-item h2 a,
+.dark-theme .post-page h1 {
+  color: #e8e8e8 !important;
+}
+
+.dark-theme .news-item p,
+.dark-theme .post-page .content {
+  color: #b8b8c8 !important;
+}
+
+.dark-theme .date {
+  background: #3a3a5a !important;
+  color: #b8b8c8 !important;
+}
+
+.dark-theme .meta {
+  color: #8a8a9a !important;
+}
+
+.dark-theme .read-more {
+  color: #6c8cff !important;
 }
 </style>

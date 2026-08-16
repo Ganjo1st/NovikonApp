@@ -53,6 +53,7 @@ public class ArticleActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Новость");
         }
 
+        // Инициализация элементов
         titleView = findViewById(R.id.articleTitle);
         textView = findViewById(R.id.articleText);
         dateView = findViewById(R.id.articleDate);
