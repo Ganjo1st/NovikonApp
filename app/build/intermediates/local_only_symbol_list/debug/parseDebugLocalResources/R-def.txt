@@ -17,6 +17,13 @@ color text_light
 color white
 drawable ic_like
 drawable ic_views
+id articleDate
+id articleImage
+id articleText
+id articleTitle
+id articleViews
+id dislikeBtn
+id likeBtn
 id newsDate
 id newsDescription
 id newsImage
@@ -26,6 +33,7 @@ id progressBar
 id themeToggle
 id toolbar
 id webView
+layout activity_article
 layout activity_main
 layout activity_webview
 layout news_item

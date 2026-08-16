@@ -18,9 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -36,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Загружаем тему
         prefs = getSharedPreferences("settings", MODE_PRIVATE);
         boolean isDarkTheme = prefs.getBoolean("dark_theme", false);
         if (isDarkTheme) {
@@ -68,11 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
         newsListView.setOnItemClickListener((parent, view, position, id) -> {
             NewsItem item = newsList.get(position);
-            Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-            // Используем index.html с параметром post
-            String postUrl = "https://ganjo1st.github.io/NovikonApp/index.html?post=" + item.updateId;
-            intent.putExtra("url", postUrl);
+            Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
             intent.putExtra("title", item.title);
+            intent.putExtra("fullText", item.fullText);
+            intent.putExtra("photoUrl", item.photoUrl);
+            intent.putExtra("date", item.date);
+            intent.putExtra("updateId", item.updateId);
             startActivity(intent);
         });
     }
@@ -114,14 +112,19 @@ public class MainActivity extends AppCompatActivity {
                     String caption = channelPost.getString("caption");
                     int date = channelPost.getInt("date");
 
+                    // Разделяем заголовок и текст
                     String title = caption.split("\n")[0];
+                    String fullText = caption;
                     String description = caption.length() > 150 ? caption.substring(0, 150) + "..." : caption;
 
+                    // Получаем фото (если есть)
                     String photoUrl = null;
                     if (channelPost.has("photo")) {
                         JSONArray photos = channelPost.getJSONArray("photo");
                         if (photos.length() > 0) {
+                            // Берем самое большое фото
                             JSONObject lastPhoto = photos.getJSONObject(photos.length() - 1);
+                            // Используем заглушку, т.к. реальные фото недоступны напрямую
                             photoUrl = "https://picsum.photos/seed/" + post.getInt("update_id") + "/800/400";
                         }
                     }
@@ -130,18 +133,13 @@ public class MainActivity extends AppCompatActivity {
                             post.getInt("update_id"),
                             title,
                             description,
-                            caption,
+                            fullText,
                             date,
                             photoUrl,
                             caption
                     );
                     newsList.add(item);
                 }
-
-                // Сортировка: сначала свежие (по убыванию date)
-                // Оставляем как есть — данные из Telegram уже в правильном порядке
-                // Но на всякий случай сортируем вручную
-                newsList.sort((a, b) -> Integer.compare(b.date, a.date));
 
                 mainHandler.post(() -> {
                     adapter.notifyDataSetChanged();

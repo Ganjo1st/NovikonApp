@@ -44,6 +44,10 @@
         "source": "com.novikon.app-main-45:/mipmap-hdpi/ic_launcher.png"
     },
     {
+        "merged": "com.novikon.app-debug-43:/layout_activity_article.xml.flat",
+        "source": "com.novikon.app-main-45:/layout/activity_article.xml"
+    },
+    {
         "merged": "com.novikon.app-debug-43:/drawable_ic_like.xml.flat",
         "source": "com.novikon.app-main-45:/drawable/ic_like.xml"
     },
