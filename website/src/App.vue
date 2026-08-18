@@ -1,172 +1,152 @@
-<template>
-  <div id="app" :class="{ 'dark-theme': darkMode }">
-    <header>
-      <nav>
-        <div class="logo-container">
-          <span class="logo-icon">📰</span>
-          <span class="logo-text">Новикон</span>
-        </div>
-        <div class="nav-right">
-          <button @click="toggleTheme" class="theme-toggle">
-            {{ darkMode ? '☀️' : '🌙' }}
-          </button>
-        </div>
-      </nav>
-    </header>
-    <main>
-      <router-view />
-    </main>
-    <footer>
-      <p>&copy; 2026 Новикон. Все новости взяты из открытых источников.</p>
-    </footer>
-  </div>
-</template>
-
 <script setup>
 import { ref, onMounted } from 'vue';
 
+const articles = ref([]);
+const loading = ref(true);
 const darkMode = ref(false);
-
-onMounted(() => {
-  const saved = localStorage.getItem('novikon-theme');
-  if (saved === 'dark') {
-    darkMode.value = true;
-    document.documentElement.classList.add('dark-theme');
-  }
-});
 
 const toggleTheme = () => {
   darkMode.value = !darkMode.value;
-  localStorage.setItem('novikon-theme', darkMode.value ? 'dark' : 'light');
-  document.documentElement.classList.toggle('dark-theme');
+  document.body.classList.toggle('dark-theme');
 };
+
+// Логотип
+const LogoIcon = `
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height:50px; margin-right:12px;">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0099cc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d47a1;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff5722;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="45" r="30" fill="url(#grad1)" />
+  <path d="M25 20 C 40 10, 60 10, 75 20" stroke="#ffffff" stroke-width="2" fill="none" />
+  <path d="M20 35 C 30 25, 70 25, 80 35" stroke="#ffffff" stroke-width="2" fill="none" />
+  <path d="M25 55 C 40 65, 60 65, 75 55" stroke="#ffffff" stroke-width="2" fill="none" />
+  <path d="M50 25 L 60 55 L 45 48 L 35 60 Z" fill="url(#grad2)" />
+  <path d="M70 20 C 75 25, 80 30, 82 35" stroke="#0099cc" stroke-width="3" fill="none" />
+  <path d="M75 15 C 82 22, 88 30, 90 38" stroke="#0099cc" stroke-width="3" fill="none" />
+</svg>`;
+
+onMounted(() => {
+  setTimeout(() => {
+    const rawData = [
+      {
+        id: 1,
+        title: "Срочно: Новый искусственный интеллект побил рекорды",
+        content: "Сегодня компания представила новую модель, которая превзошла все ожидания экспертов. Статья полностью откроется при клике!",
+        // Эта картинка гарантированно работает локально
+        image_url: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600",
+        published_at: "2026-08-18"
+      },
+      {
+        id: 2,
+        title: "Вчерашние новости: Экономика показывает рост",
+        content: "Аналитики сообщают о положительной динамике в третьем квартале. Полный текст доступен внутри.",
+        image_url: "https://images.pexels.com/photos/4386366/pexels-photo-4386366.jpeg?auto=compress&cs=tinysrgb&w=600",
+        published_at: "2026-08-17"
+      },
+      {
+        id: 3,
+        title: "Совет дня: Как правильно заваривать чай",
+        content: "Простые советы от эксперта, которые изменят ваш вкус.",
+        image_url: null,
+        published_at: "2026-08-16"
+      }
+    ];
+
+    // Сортировка от новых к старым
+    articles.value = rawData.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+    loading.value = false;
+  }, 500);
+});
 </script>
 
+<template>
+  <div class="app-container" :class="{ 'dark-theme': darkMode }">
+    <header class="navbar">
+      <a href="/NovikonApp/" class="logo-link">
+        <div v-html="LogoIcon" class="nav-logo"></div>
+        <div class="logo-text-group">
+          <h1 class="logo-main">НОВИКОН</h1>
+          <span class="logo-sub">АКТУАЛЬНЫЕ НОВОСТИ</span>
+        </div>
+      </a>
+      <button @click="toggleTheme" class="theme-btn">
+        {{ darkMode ? '☀️' : '🌙' }}
+      </button>
+    </header>
+
+    <main class="main-content">
+      <div v-if="loading" class="loading-text">Загрузка новостей...</div>
+      
+      <div v-else>
+        <!-- Оборачиваем ВСЮ карточку в ссылку, чтобы она была полностью кликабельной -->
+        <a v-for="article in articles" :key="article.id" :href="'/NovikonApp/article/' + article.id" class="news-card-link">
+          <div class="news-card">
+            
+            <img v-if="article.image_url" :src="article.image_url" alt="" class="news-image" referrerpolicy="no-referrer" />
+            
+            <h2 class="news-title">{{ article.title }}</h2>
+            
+            <p class="news-content">{{ article.content }}</p>
+            
+            <div class="news-footer">
+              <span class="news-date">{{ article.published_at }}</span>
+              <span class="read-more">Читать далее →</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </main>
+  </div>
+</template>
+
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ГЛОБАЛЬНЫЕ СТИЛИ */
+body { margin: 0; background-color: #ffffff; transition: background-color 0.3s ease; }
+body.dark-theme { background-color: #121212; }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-  background: #f5f7fa;
-  color: #1a1a2e;
-  line-height: 1.6;
-  transition: background 0.3s, color 0.3s;
-}
+.app-container { min-height: 100vh; transition: background-color 0.3s ease; background-color: #f8fbff; }
+.app-container.dark-theme { background-color: #121212; }
 
-body.dark-theme {
-  background: #1a1a2e;
-  color: #e8e8e8;
-}
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background-color: #ffffff; border-bottom: 1px solid #e0e0e0; transition: background-color 0.3s ease; }
+.app-container.dark-theme .navbar { background-color: #1e1e1e; border-bottom: 1px solid #333; }
 
-header {
-  background: #1a1a2e;
-  padding: 12px 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+.logo-link { display: flex; align-items: center; text-decoration: none; cursor: pointer; }
+.nav-logo { display: flex; align-items: center; }
+.logo-text-group { display: flex; flex-direction: column; justify-content: center; }
+.logo-main { color: #0d47a1; font-size: 26px; font-weight: 800; margin: 0; letter-spacing: 1.5px; transition: color 0.3s; }
+.app-container.dark-theme .logo-main { color: #4fc3f7; }
+.logo-sub { color: #1565c0; font-size: 12px; font-weight: 400; letter-spacing: 2px; margin-top: -2px; transition: color 0.3s; }
+.app-container.dark-theme .logo-sub { color: #81d4fa; }
 
-nav {
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+.theme-btn { background: transparent; border: 1px solid #ccc; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 18px; }
+.app-container.dark-theme .theme-btn { border-color: #555; background: #333; color: #fff; }
 
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.main-content { padding: 24px; max-width: 800px; margin: 0 auto; width: 100%; }
+.loading-text { text-align: center; padding: 40px; color: #888; }
 
-.logo-icon {
-  font-size: 1.8rem;
-}
+/* Убираем стандартное подчеркивание у ссылок и делаем карточку кликабельной */
+.news-card-link { text-decoration: none; display: block; margin-bottom: 16px; }
+.news-card-link:hover .news-card { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
-.logo-text {
-  color: white;
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
+.news-card { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; transition: all 0.3s ease; }
+.app-container.dark-theme .news-card { background-color: #1e1e1e; border: 1px solid #333; }
+.app-container.dark-theme .news-card-link:hover .news-card { box-shadow: 0 4px 12px rgba(255,255,255,0.05); }
 
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
+.news-image { width: 100%; border-radius: 8px; margin-bottom: 12px; object-fit: cover; display: block; }
+.news-title { font-size: 20px; color: #0d47a1; margin: 0 0 8px 0; line-height: 1.4; transition: color 0.3s; }
+.app-container.dark-theme .news-title { color: #ffffff; }
+.news-content { font-size: 16px; line-height: 1.6; color: #444; margin: 0 0 12px 0; transition: color 0.3s; }
+.app-container.dark-theme .news-content { color: #b0b0b0; }
 
-.theme-toggle {
-  background: rgba(255,255,255,0.15);
-  border: none;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-}
-
-.theme-toggle:hover {
-  background: rgba(255,255,255,0.25);
-}
-
-main {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
-
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #8a8a9a;
-  font-size: 0.9rem;
-  border-top: 1px solid rgba(0,0,0,0.05);
-}
-
-.dark-theme footer {
-  color: #5a5a7a;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
-
-.dark-theme .news-item,
-.dark-theme .post-page {
-  background: #2a2a4a !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
-}
-
-.dark-theme .news-item h2 a,
-.dark-theme .post-page h1 {
-  color: #e8e8e8 !important;
-}
-
-.dark-theme .news-item p,
-.dark-theme .post-page .content {
-  color: #b8b8c8 !important;
-}
-
-.dark-theme .date {
-  background: #3a3a5a !important;
-  color: #b8b8c8 !important;
-}
-
-.dark-theme .meta {
-  color: #8a8a9a !important;
-}
-
-.dark-theme .read-more {
-  color: #6c8cff !important;
-}
+.news-footer { display: flex; justify-content: space-between; font-size: 14px; color: #666; border-top: 1px solid #eee; padding-top: 14px; transition: all 0.3s; }
+.app-container.dark-theme .news-footer { border-top-color: #333; color: #999; }
+.read-more { color: #1565c0; font-weight: 500; text-decoration: none; transition: color 0.3s; }
+.app-container.dark-theme .read-more { color: #4fc3f7; }
 </style>
