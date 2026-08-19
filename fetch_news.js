@@ -1,10 +1,13 @@
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot(BOT_TOKEN, { polling: false });
+const fs = require('fs');
+const path = require('path');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHANNEL_ID = process.env.CHANNEL_ID;
 
-const bot = new TelegramBot.default(BOT_TOKEN, { polling: false });
+// Инициализируем бота ОДИН РАЗ
+const bot = new TelegramBot(BOT_TOKEN, { polling: false });
+
 async function fetchNews() {
     try {
         if (!BOT_TOKEN || !CHANNEL_ID) {
@@ -14,10 +17,8 @@ async function fetchNews() {
 
         console.log('🔄 Загружаю посты из канала...');
 
-        // Получаем последние 50 сообщений из канала
         const updates = await bot.getUpdates({ limit: 50, timeout: 0 });
         
-        // Фильтруем только посты из нужного канала
         const channelMessages = updates
             .filter(u => u.channel_post && String(u.channel_post.chat.id) === String(CHANNEL_ID))
             .map(u => u.channel_post);
@@ -29,7 +30,6 @@ async function fetchNews() {
             return;
         }
 
-        // Группируем по ID, чтобы убрать дубликаты
         const uniqueMessages = [];
         const seenIds = new Set();
 
@@ -42,7 +42,6 @@ async function fetchNews() {
 
         console.log(`✅ Уникальных постов: ${uniqueMessages.length}`);
 
-        // Парсим посты
         const news = uniqueMessages.map(msg => {
             const text = msg.text || msg.caption || '';
             const lines = text.split('\n');
@@ -64,7 +63,6 @@ async function fetchNews() {
             };
         });
 
-        // Сохраняем в JSON
         const filePath = path.join(__dirname, 'website', 'public', 'data', 'news.json');
         const dir = path.dirname(filePath);
         if (!fs.existsSync(dir)) {
