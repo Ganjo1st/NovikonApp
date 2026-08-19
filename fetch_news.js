@@ -1,5 +1,5 @@
-const TelegramBot = require('node-telegram-bot-api').default;const fs = require('fs');
-const path = require('path');
+const TelegramBot = require('node-telegram-bot-api');
+const bot = new TelegramBot(BOT_TOKEN, { polling: false });
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHANNEL_ID = process.env.CHANNEL_ID;
