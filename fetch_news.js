@@ -1,5 +1,4 @@
-const TelegramBot = require('node-telegram-bot-api');
-const fs = require('fs');
+const TelegramBot = require('node-telegram-bot-api').default;const fs = require('fs');
 const path = require('path');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
