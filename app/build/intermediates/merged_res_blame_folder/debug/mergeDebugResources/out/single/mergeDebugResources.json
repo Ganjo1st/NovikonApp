@@ -1,0 +1,78 @@
+[
+    {
+        "merged": "com.novikon.app-debug-43:/layout_news_item.xml.flat",
+        "source": "com.novikon.app-main-45:/layout/news_item.xml"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/xml_data_extraction_rules.xml.flat",
+        "source": "com.novikon.app-main-45:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/drawable_logo.xml.flat",
+        "source": "com.novikon.app-main-45:/drawable/logo.xml"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/xml_backup_rules.xml.flat",
+        "source": "com.novikon.app-main-45:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/drawable_ic_views.xml.flat",
+        "source": "com.novikon.app-main-45:/drawable/ic_views.xml"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/layout_activity_article.xml.flat",
+        "source": "com.novikon.app-main-45:/layout/activity_article.xml"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/drawable_ic_like.xml.flat",
+        "source": "com.novikon.app-main-45:/drawable/ic_like.xml"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/layout_activity_main.xml.flat",
+        "source": "com.novikon.app-main-45:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/layout_activity_webview.xml.flat",
+        "source": "com.novikon.app-main-45:/layout/activity_webview.xml"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.novikon.app-debug-43:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.novikon.app-main-45:/mipmap-xhdpi/ic_launcher.png"
+    }
+]

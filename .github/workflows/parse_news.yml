@@ -1,0 +1,49 @@
+name: Parse Telegram News
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Каждые 5 минут
+  workflow_dispatch:        # Можно запустить вручную
+
+permissions:
+  contents: write           # Для записи в репозиторий
+
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Parse Telegram News
+      run: |
+        # Создаем папку для данных
+        mkdir -p public/data
+        
+        # Запрос к Telegram API
+        curl -s "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/getUpdates?chat_id=-1003759098789&limit=20" > public/data/news.json
+        
+        # Проверяем, что файл не пустой
+        if [ ! -s public/data/news.json ]; then
+          echo "Ошибка: пустой ответ от Telegram API"
+          exit 1
+        fi
+        
+        # Добавляем временную метку
+        echo "{\"last_update\": \"$(date -Iseconds)\", \"data\": " > public/data/news_with_time.json
+        cat public/data/news.json >> public/data/news_with_time.json
+        echo "}" >> public/data/news_with_time.json
+        
+        # Перемещаем
+        mv public/data/news_with_time.json public/data/news.json
+        
+        echo "✅ Новости сохранены в public/data/news.json"
+        
+    - name: Commit and push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add public/data/news.json
+        git diff --staged --quiet || git commit -m "Автообновление новостей $(date -Iseconds)"
+        git push

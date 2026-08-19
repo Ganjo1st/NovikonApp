@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+app/build/
+local.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# APK
+*.apk
+*.zip
+
+# OS
+.DS_Store
+
+# APK files
+*.apk
+*.zip
+
+# Jekyll
+_config.yml
+.nojekyll
+
+# Build outputs
+app/build/
+.gradle/
