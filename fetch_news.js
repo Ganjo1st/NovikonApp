@@ -2,18 +2,17 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-// Получаем данные из переменных окружения (которые GitHub подставит из секретов)
 const TELEGRAM_BOT_TOKEN = process.env.BOT_TOKEN;
 const TELEGRAM_CHANNEL_ID = process.env.CHANNEL_ID;
 
 async function fetchNews() {
     try {
         if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHANNEL_ID) {
-            console.error("❌ Ошибка: Не найдены BOT_TOKEN или CHANNEL_ID в секретах.");
+            console.error("❌ Ошибка: Не найдены BOT_TOKEN или CHANNEL_ID.");
             return;
         }
 
-        const TELEGRAM_API_URL = https://api.telegram.org/bot\/getUpdates;
+        const TELEGRAM_API_URL = https://api.telegram.org/bot + TELEGRAM_BOT_TOKEN + /getUpdates;
         const response = await axios.get(TELEGRAM_API_URL, { params: { offset: -1, limit: 10 } });
         const messages = response.data.result;
 
@@ -26,7 +25,7 @@ async function fetchNews() {
             let image_url = null;
             if (msg.message.photo) {
                 const file_id = msg.message.photo[msg.message.photo.length - 1].file_id;
-                image_url = https://api.telegram.org/file/bot\/\;
+                image_url = https://api.telegram.org/file/bot + TELEGRAM_BOT_TOKEN + / + file_id;
             }
 
             return {
@@ -40,7 +39,7 @@ async function fetchNews() {
 
         const filePath = path.join(__dirname, 'website', 'public', 'data', 'news.json');
         fs.writeFileSync(filePath, JSON.stringify(news, null, 2));
-        console.log(✅ Новости обновлены! Загружено \ постов.);
+        console.log(✅ Новости обновлены! Загружено  + news.length +  постов.);
 
     } catch (error) {
         console.error("❌ Ошибка при парсинге:", error.message);
@@ -48,4 +47,4 @@ async function fetchNews() {
 }
 
 fetchNews();
-setInterval(fetchNews, 60000); // Запускать каждую минуту
+setInterval(fetchNews, 60000);
