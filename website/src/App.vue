@@ -32,7 +32,7 @@ const LogoIcon = `
 </svg>`;
 
 onMounted(() => {
-  fetch('/data/news.json')
+  fetch('/NovikonApp/data/news.json')
     .then(res => res.json())
     .then(data => {
       articles.value = data;
@@ -64,23 +64,11 @@ onMounted(() => {
       
       <div v-else>
         <div v-for="article in articles" :key="article.id" class="news-card">
-          <!-- Картинка -->
           <img v-if="article.image_url" :src="article.image_url" alt="" class="news-image" referrerpolicy="no-referrer" />
-          
-          <!-- Заголовок -->
           <h2 class="news-title">{{ article.title }}</h2>
-          
-          <!-- Полный текст (показываем здесь же, если нужно) -->
           <p class="news-content">{{ article.content }}</p>
-          
-          <!-- Футер с датой, статистикой и ссылкой -->
           <div class="news-footer">
-            <div class="footer-left">
-              <span class="news-date">{{ article.published_at }}</span>
-              <span class="stats">
-                👁️ {{ article.views }} &nbsp; ❤️ {{ article.likes }}
-              </span>
-            </div>
+            <span class="news-date">{{ article.published_at }}</span>
             <a :href="'/NovikonApp/article/' + article.id" target="_blank" class="read-more">Читать далее →</a>
           </div>
         </div>
@@ -116,9 +104,6 @@ body.dark-theme { background-color: #121212; }
 .app-container.dark-theme .news-content { color: #b0b0b0; }
 .news-footer { display: flex; justify-content: space-between; font-size: 14px; color: #666; border-top: 1px solid #eee; padding-top: 14px; transition: all 0.3s; }
 .app-container.dark-theme .news-footer { border-top-color: #333; color: #999; }
-.footer-left { display: flex; gap: 15px; align-items: center; }
-.stats { font-weight: bold; color: #0d47a1; }
-.app-container.dark-theme .stats { color: #4fc3f7; }
 .read-more { color: #1565c0; font-weight: 500; text-decoration: none; transition: color 0.3s; }
 .app-container.dark-theme .read-more { color: #4fc3f7; }
 </style>
