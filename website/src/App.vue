@@ -66,10 +66,10 @@ onMounted(() => {
         <div v-for="article in articles" :key="article.id" class="news-card">
           <img v-if="article.image_url" :src="article.image_url" alt="" class="news-image" referrerpolicy="no-referrer" />
           <h2 class="news-title">{{ article.title }}</h2>
-          <p class="news-content">{{ article.content }}</p>
+          <p class="news-content">{{ article.content.substring(0, 150) }}...</p>
           <div class="news-footer">
             <span class="news-date">{{ article.published_at }}</span>
-            <a :href="'/NovikonApp/article/' + article.id" target="_blank" class="read-more">Читать далее →</a>
+            <a :href="'/NovikonApp/article/' + article.id" class="read-more">Читать далее →</a>
           </div>
         </div>
       </div>
