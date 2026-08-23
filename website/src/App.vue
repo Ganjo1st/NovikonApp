@@ -1,106 +1,73 @@
-<script setup>
-import { ref, onMounted } from 'vue';
-
-const articles = ref([]);
-const loading = ref(true);
-const darkMode = ref(false);
-
-const toggleTheme = () => {
-  darkMode.value = !darkMode.value;
-  document.body.classList.toggle('dark');
-};
-
-const LogoIcon = `
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="height:50px; margin-right:12px;">
-  <defs>
-    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0099cc;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0d47a1;stop-opacity:1" />
-    </linearGradient>
-    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ff9900;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#ff5722;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  <circle cx="50" cy="45" r="30" fill="url(#grad1)" />
-  <path d="M25 20 C 40 10, 60 10, 75 20" stroke="#ffffff" stroke-width="2" fill="none" />
-  <path d="M20 35 C 30 25, 70 25, 80 35" stroke="#ffffff" stroke-width="2" fill="none" />
-  <path d="M25 55 C 40 65, 60 65, 75 55" stroke="#ffffff" stroke-width="2" fill="none" />
-  <path d="M50 25 L 60 55 L 45 48 L 35 60 Z" fill="url(#grad2)" />
-  <path d="M70 20 C 75 25, 80 30, 82 35" stroke="#0099cc" stroke-width="3" fill="none" />
-  <path d="M75 15 C 82 22, 88 30, 90 38" stroke="#0099cc" stroke-width="3" fill="none" />
-</svg>`;
-
-onMounted(() => {
-  fetch('/NovikonApp/data/news.json')
-    .then(res => res.json())
-    .then(data => {
-      articles.value = data;
-      loading.value = false;
-    })
-    .catch(() => { loading.value = false; });
-});
-</script>
-
-<template>
-  <div class="app-container" :class="{ 'dark': darkMode }">
-    <header class="navbar">
-      <a href="/NovikonApp/" class="logo-link">
-        <div v-html="LogoIcon" class="nav-logo"></div>
-        <div class="logo-text-group">
-          <h1 class="logo-main">НОВИКОН</h1>
-          <span class="logo-sub">АКТУАЛЬНЫЕ НОВОСТИ</span>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НОВИКОН</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f8fbff; transition: all 0.3s; }
+        body.dark { background: #121212; }
+        header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: white; border-bottom: 1px solid #eee; transition: all 0.3s; }
+        body.dark header { background: #1e1e1e; border-bottom: 1px solid #333; }
+        .logo { display: flex; align-items: center; color: #0d47a1; font-size: 24px; font-weight: bold; }
+        body.dark .logo { color: #4fc3f7; }
+        .logo img { height: 40px; margin-right: 12px; }
+        button { background: none; border: 1px solid #ccc; border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+        body.dark button { border-color: #555; background: #333; color: white; }
+        main { max-width: 800px; margin: 0 auto; padding: 24px; }
+        .card { background: white; border: 1px solid #eee; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; }
+        body.dark .card { background: #1e1e1e; border: 1px solid #333; }
+        .card h2 { color: #0d47a1; font-size: 20px; margin: 0 0 8px 0; }
+        body.dark .card h2 { color: #ffffff; }
+        .card p { color: #444; font-size: 16px; line-height: 1.6; }
+        body.dark .card p { color: #b0b0b0; }
+        .date { color: #888; font-size: 13px; margin-top: 12px; }
+        .link { color: #1565c0; font-weight: bold; text-decoration: none; display: block; margin-top: 12px; }
+        body.dark .link { color: #4fc3f7; }
+        .dark { background: #121212; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/NovikonApp/logo.png" alt="Логотип">
+            <span>НОВИКОН</span>
         </div>
-      </a>
-      <button @click="toggleTheme" class="theme-btn">
-        {{ darkMode ? '☀️' : '🌙' }}
-      </button>
+        <button id="theme-btn">🌙</button>
     </header>
+    <main id="news-list"></main>
 
-    <main class="main-content">
-      <div v-if="loading" class="loading-text">Загрузка новостей...</div>
-      <div v-else>
-        <div v-for="article in articles" :key="article.id" class="news-card">
-          <img v-if="article.image_url" :src="article.image_url" alt="" class="news-image" referrerpolicy="no-referrer" />
-          <h2 class="news-title">{{ article.title }}</h2>
-          <p class="news-content">{{ article.content.substring(0, 150) }}...</p>
-          <div class="news-footer">
-            <span class="news-date">{{ article.published_at }}</span>
-            <a :href="'/NovikonApp/article/' + article.id" class="read-more">Читать далее →</a>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-</template>
+    <script>
+        const news = [
+            {
+                id: 1,
+                title: "Идеальное время для «безумия» Трампа и ядерной войны",
+                content: "Драго Боснич, независимый геополитический и военный аналитик. В течение многих лет основная пропагандистская машина и многие глубоко коррумпированные федеральные учреждения США ставили под сомнение психическое здоровье президента Дональда Трампа, даже во время его первого срока.",
+                published_at: "2026-08-22"
+            },
+            {
+                id: 2,
+                title: "«Курдский вопрос» не решен: как политика США помогла создать новую ближневосточную проблему",
+                content: "Повстанческое движение РПК не следует путать с решением самого «курдского вопроса»: последний по-прежнему переплетается с конкурирующими стратегиями безопасности Турции, Ирана, Сирии, Ирака и США.",
+                published_at: "2026-08-22"
+            }
+        ];
 
-<style>
-body { margin: 0; background-color: #ffffff; transition: background-color 0.3s ease; }
-body.dark { background-color: #121212; }
-.app-container { min-height: 100vh; transition: background-color 0.3s ease; background-color: #f8fbff; }
-.app-container.dark { background-color: #121212; }
-.navbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background-color: #ffffff; border-bottom: 1px solid #e0e0e0; transition: background-color 0.3s ease; }
-.app-container.dark .navbar { background-color: #1e1e1e; border-bottom: 1px solid #333; }
-.logo-link { display: flex; align-items: center; text-decoration: none; cursor: pointer; }
-.nav-logo { display: flex; align-items: center; }
-.logo-text-group { display: flex; flex-direction: column; justify-content: center; }
-.logo-main { color: #0d47a1; font-size: 26px; font-weight: 800; margin: 0; letter-spacing: 1.5px; transition: color 0.3s; }
-.app-container.dark .logo-main { color: #4fc3f7; }
-.logo-sub { color: #1565c0; font-size: 12px; font-weight: 400; letter-spacing: 2px; margin-top: -2px; transition: color 0.3s; }
-.app-container.dark .logo-sub { color: #81d4fa; }
-.theme-btn { background: transparent; border: 1px solid #ccc; padding: 5px 10px; border-radius: 8px; cursor: pointer; font-size: 18px; }
-.app-container.dark .theme-btn { border-color: #555; background: #333; color: #fff; }
-.main-content { padding: 24px; max-width: 800px; margin: 0 auto; width: 100%; }
-.loading-text { text-align: center; padding: 40px; color: #888; }
-.news-card { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 12px; margin-bottom: 16px; padding: 20px; transition: all 0.3s ease; }
-.app-container.dark .news-card { background-color: #1e1e1e; border: 1px solid #333; }
-.news-image { width: 100%; border-radius: 8px; margin-bottom: 12px; object-fit: cover; display: block; }
-.news-title { font-size: 20px; color: #0d47a1; margin: 0 0 8px 0; line-height: 1.4; transition: color 0.3s; }
-.app-container.dark .news-title { color: #ffffff; }
-.news-content { font-size: 16px; line-height: 1.6; color: #444; margin: 0 0 12px 0; transition: color 0.3s; }
-.app-container.dark .news-content { color: #b0b0b0; }
-.news-footer { display: flex; justify-content: space-between; font-size: 14px; color: #666; border-top: 1px solid #eee; padding-top: 14px; transition: all 0.3s; }
-.app-container.dark .news-footer { border-top-color: #333; color: #999; }
-.read-more { color: #1565c0; font-weight: 500; text-decoration: none; transition: color 0.3s; }
-.app-container.dark .read-more { color: #4fc3f7; }
-</style>
+        // Показываем новости
+        document.getElementById('news-list').innerHTML = news.map(article => `
+            <div class="card">
+                <h2>${article.title}</h2>
+                <p>${article.content.substring(0, 150)}...</p>
+                <div class="date">${article.published_at}</div>
+                <a class="link" href="/NovikonApp/article/${article.id}">Читать далее →</a>
+            </div>
+        `).join('');
+
+        // Переключатель темы
+        document.getElementById('theme-btn').addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            document.getElementById('theme-btn').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+        });
+    </script>
+</body>
+</html>
