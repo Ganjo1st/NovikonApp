@@ -9,9 +9,8 @@
         body.dark { background: #121212; }
         header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: white; border-bottom: 1px solid #eee; transition: all 0.3s; }
         body.dark header { background: #1e1e1e; border-bottom: 1px solid #333; }
-        .logo { display: flex; align-items: center; color: #0d47a1; font-size: 24px; font-weight: bold; }
-        body.dark .logo { color: #4fc3f7; }
-        .logo img { height: 40px; margin-right: 12px; }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 40px; }
         button { background: none; border: 1px solid #ccc; border-radius: 8px; padding: 6px 10px; cursor: pointer; }
         body.dark button { border-color: #555; background: #333; color: white; }
         main { max-width: 800px; margin: 0 auto; padding: 24px; }
@@ -30,41 +29,95 @@
     <header>
         <div class="logo">
             <img src="/NovikonApp/logo.png" alt="Логотип">
-            <span>НОВИКОН</span>
         </div>
         <button id="theme-btn">🌙</button>
     </header>
     <main id="news-list"></main>
 
     <script>
-        // ЗАМЕНИ ЭТОТ БЛОК НА СВОИ ДАННЫЕ (или загрузим из JSON)
-        const news = [
-            {
-                id: 1,
-                title: "Идеальное время для «безумия» Трампа и ядерной войны",
-                content: "Драго Боснич, независимый геополитический и военный аналитик. В течение многих лет основная пропагандистская машина и многие глубоко коррумпированные федеральные учреждения США ставили под сомнение психическое здоровье президента Дональда Трампа, даже во время его первого срока.",
-                image_url: null,
-                published_at: "2026-08-22"
-            },
-            {
-                id: 2,
-                title: "«Курдский вопрос» не решен: как политика США помогла создать новую ближневосточную проблему",
-                content: "Повстанческое движение РПК не следует путать с решением самого «курдского вопроса»: последний по-прежнему переплетается с конкурирующими стратегиями безопасности Турции, Ирана, Сирии, Ирака и США.",
-                image_url: null,
-                published_at: "2026-08-22"
-            }
-        ];
+        // Инициализация: загрузка данных из data/news.json
+        fetch('/NovikonApp/data/news.json')
+            .then(res => res.json())
+            .then(news => {
+                // Обработка: сортировка от новых к старым, показываем только первые 30
+                const sortedNews = news.sort((a, b) => new Date(b.published_at) - new Date(a.published_at)).slice(0, 30);
+                
+                document.getElementById('news-list').innerHTML = sortedNews.map(article => `
+                    <div class="card">
+                        <a href="/NovikonApp/article/${article.id}" style="text-decoration: none;">
+                            <h2>${article.title}</h2>
+                        </a>
+                        <p>${article.content.substring(0, 150)}...</p>
+                        <div class="date">${article.published_at}</div>
+                        <a class="link" href="/NovikonApp/article/${article.id}">Читать далее →</a>
+                    </div>
+                `).join('');
+            })
+            .catch(err => console.log('Данные не найдены:', err));
 
-        // Показываем новости
-        document.getElementById('news-list').innerHTML = news.map(article => `
-            <div class="card">
-                ${article.image_url ? `<img src="${article.image_url}" alt="Изображение" style="width:100%; border-radius:8px; margin-bottom:12px;">` : ''}
-                <h2>${article.title}</h2>
-                <p>${article.content.substring(0, 150)}...</p>
-                <div class="date">${article.published_at}</div>
-                <a class="link" href="/NovikonApp/article/${article.id}">Читать далее →</a>
-            </div>
-        `).join('');
+        // Переключатель темы
+        document.getElementById('theme-btn').addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            document.getElementById('theme-btn').textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НОВИКОН</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f8fbff; transition: all 0.3s; }
+        body.dark { background: #121212; }
+        header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: white; border-bottom: 1px solid #eee; transition: all 0.3s; }
+        body.dark header { background: #1e1e1e; border-bottom: 1px solid #333; }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 40px; }
+        button { background: none; border: 1px solid #ccc; border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+        body.dark button { border-color: #555; background: #333; color: white; }
+        main { max-width: 800px; margin: 0 auto; padding: 24px; }
+        .card { background: white; border: 1px solid #eee; border-radius: 12px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; }
+        body.dark .card { background: #1e1e1e; border: 1px solid #333; }
+        .card h2 { color: #0d47a1; font-size: 20px; margin: 0 0 8px 0; }
+        body.dark .card h2 { color: #ffffff; }
+        .card p { color: #444; font-size: 16px; line-height: 1.6; }
+        body.dark .card p { color: #b0b0b0; }
+        .date { color: #888; font-size: 13px; margin-top: 12px; }
+        .link { color: #1565c0; font-weight: bold; text-decoration: none; display: block; margin-top: 12px; }
+        body.dark .link { color: #4fc3f7; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/NovikonApp/logo.png" alt="Логотип">
+        </div>
+        <button id="theme-btn">🌙</button>
+    </header>
+    <main id="news-list"></main>
+
+    <script>
+        // Инициализация: загрузка данных из data/news.json
+        fetch('/NovikonApp/data/news.json')
+            .then(res => res.json())
+            .then(news => {
+                // Обработка: сортировка от новых к старым, показываем только первые 30
+                const sortedNews = news.sort((a, b) => new Date(b.published_at) - new Date(a.published_at)).slice(0, 30);
+                
+                document.getElementById('news-list').innerHTML = sortedNews.map(article => `
+                    <div class="card">
+                        <a href="/NovikonApp/article/${article.id}" style="text-decoration: none;">
+                            <h2>${article.title}</h2>
+                        </a>
+                        <p>${article.content.substring(0, 150)}...</p>
+                        <div class="date">${article.published_at}</div>
+                        <a class="link" href="/NovikonApp/article/${article.id}">Читать далее →</a>
+                    </div>
+                `).join('');
+            })
+            .catch(err => console.log('Данные не найдены:', err));
 
         // Переключатель темы
         document.getElementById('theme-btn').addEventListener('click', () => {
